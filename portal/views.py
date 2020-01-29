@@ -15,6 +15,6 @@ def home(request):
 
 def resources(request):
     if request.method == 'GET':
-        return render('index.html')
+        return render(request, 'index.html')
 
 	

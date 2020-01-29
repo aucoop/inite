@@ -1,12 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>CCD Index</title>
 		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 		
-		<link rel="stylesheet" type="text/css" href="bootstrap-4.4.1-dist/css/bootstrap.min.css">
-		<script src="bootstrap-4.4.1-dist/js/bootstrap.min.js"> </script>
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+		<script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"> </script>
 
 		
 		
@@ -22,7 +23,7 @@
 				<br>
 		<div class="row">
 			<div class="option col-md-4">
-				<div class="center"><img src="src/wikipedia.png"  style="margin-bottom:8px;" /> </div>
+				<div class="center"><img src="{% static 'src/wikipedia.png' %}"  style="margin-bottom:8px;" /> </div>
 				<p>
 					Wikipéda est une aencyclopédie universelle, collaborative et multilingu. L'encyclopédie est en libre accès, en lecture comme en écriture. Wikipédia est l'un des sites les plus fréquentés au monde, avec plus de 600 millions de visites quotidiennes. Il constitue le plus grand et le plus populaire des ouvrages de références générales d'Internet, avec un total de 160 millions de pages disponibles. 
 				</p>
@@ -31,7 +32,7 @@
 
 			<div class="option col-md-4">
 			<br>
-				<div class="center"><img src="src/moodle.png"  /> </div>
+				<div class="center"><img src="{% static 'src/moodle.png' %}"  /> </div>
 				<br>
 				<p>
 				Moodle est une plateforme d'apprentissage en ligne libre. Développée à partir de principes pédagogiques, elle permet de créer des communautés s'instruisant autour de contenus et d'activités. 
