@@ -21,4 +21,5 @@ from portal import views as PortalViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'login/', PortalViews.login),
+    url(r'resources/', PortalViews.resources),
 ]
