@@ -1,20 +1,13 @@
-# iniciar projecte amb python3
-python3 -m django startproject apc
+### Faran falta els seguents paquets a la maquina:
+ postgresql postgresql-contrib libpq-dev python3-dev
 
-cd apc
-
-#crear entornvirtual. Asegurar problemes de verisons si hi ha mes coses utilitzant python a la maquina.
 python3 -m venv venv
 
-# activar virtualenv del projecte
+# activar virtualenv del projecte i instalar moduls
 source venv/bin/activate
+pip install -r requirements.txt
 
-# Instalar django a l'entorn. Al final fas `pip freeze > requirements.txt` per obtenir un requirements.txt de tot.
-pip install django
-
-# creas l'aplicacio
-python -m django startapp portal
-
-
+# Enjegar el servidor de proves (amb virtualenv)
+python manage.py runserver
 
 
