@@ -1,0 +1,20 @@
+# iniciar projecte amb python3
+python3 -m django startproject apc
+
+cd apc
+
+#crear entornvirtual. Asegurar problemes de verisons si hi ha mes coses utilitzant python a la maquina.
+python3 -m venv venv
+
+# activar virtualenv del projecte
+source venv/bin/activate
+
+# Instalar django a l'entorn. Al final fas `pip freeze > requirements.txt` per obtenir un requirements.txt de tot.
+pip install django
+
+# creas l'aplicacio
+python -m django startapp portal
+
+
+
+
