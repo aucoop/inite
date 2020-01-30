@@ -78,9 +78,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'db_DKS',
         'USER': 'u_DKS',
-        'PASSWORD': '',
+        'PASSWORD': 'NTExMmZhMmU3',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
