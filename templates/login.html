@@ -1,1 +1,46 @@
-asdf
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>
+      Login
+    </title>
+    <meta charset="utf-8">
+                
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"> </script>
+
+	</head>
+  
+
+	<body style="background-image: url('../static/src/background.jpg'); background-repeat: no-repeat; background-size: cover;">
+   <div class="text-center">
+    <p>
+      Pour accéder à Internet, entrez vos informations ici s'il vous plaît. 
+    </p>
+   <form class="text-center" action="/login/" method="post"> {% csrf_token %}
+  <div class="row">
+  
+  
+  <div class="col-md-3"></div>
+  <div class="col-md-2  text-right">
+    Nom: <br><br><br>
+    Prénom:  <br><br>
+    Lieu d'origine: <br><br>
+    L'âge: <br><br>
+  </div>
+  <div class="col-md-4 text-left">
+    <input type="text" name="fname" required><br><br>
+    <input type="text" name="lname" required><br><br>
+    <input type="text" name="lloc" required><br><br>
+    <input type="number" name="edat" required><br><br>
+
+  </div>
+  <div class="col-md-3"></div>
+  </div>
+  <input type="submit" value="Submit">
+</form> 
+	</div>
+	</body>
+</html>
+
