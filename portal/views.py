@@ -1,23 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from portal import functions as func
-from portal.models import Usuari
+from portal.models import Usuari, Registre
 
 # Create your views here.
 
 def login(request):
   if request.method == 'GET':
-	  return render(request, 'login.html')
+    ip = func.get_client_ip(request)
+    try:
+      r = Registre.objects.get(ip=ip)
+      return redirect('/resources/')
+    except:
+      return render(request, 'login.html')
   if request.method == 'POST':
     nom = request.POST.get('fname', '')
     cognom = request.POST.get('lname', '')
     lloc = request.POST.get('lloc', '')
     edat = request.POST.get('edat', '')
     ip = func.get_client_ip(request)
-    print(nom, cognom, lloc, edat, ip)
+    try:
+      r = Registre(ip=ip)
+      r.save()
+    except:
+      pass
     u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc)
     u.save()
-    return render(request, 'index.html')
+    return redirect('/resources/')
 
 def home(request):
     if request.method == 'GET':
@@ -30,3 +39,5 @@ def resources(request):
         return render(request, 'index.html')
 
 	
+def view_404(request, exception=None):
+  return redirect('/login/')

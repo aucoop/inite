@@ -20,6 +20,8 @@ from portal import views as PortalViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'login/', PortalViews.login),
-    url(r'resources/', PortalViews.resources),
+    path('login/', PortalViews.login),
+    path('resources/', PortalViews.resources),
+    url(r'.*', PortalViews.view_404),
 ]
+
