@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
 from portal import functions as func
+from portal import models
 
 # Create your views here.
 

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Usuari(models.Model):
-    nom = models.CharField(max_lenght=100)
+    nom = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     data_naixement = models.IntegerField()
     nascut_a = models.CharField(max_length=100)
