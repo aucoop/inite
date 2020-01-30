@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import requests
-import functions 
+from portal import functions as func
 
 # Create your views here.
 
@@ -12,7 +12,8 @@ def login(request):
     cognom = request.POST.get('lname', '')
     lloc = request.POST.get('lloc', '')
     edat = request.POST.get('edat', '')
-    
+    ip = func.get_client_ip(request)
+    print(nom, cognom, lloc, edat, ip)
     return render(request, 'index.html')
 
 def home(request):
