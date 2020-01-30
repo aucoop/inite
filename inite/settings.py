@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'portal.apps.PortalConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,8 +77,8 @@ WSGI_APPLICATION = 'inite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db_DKS',
-        'USER': 'u_DKS',
+        'NAME': 'db_dks',
+        'USER': 'u_dks',
         'PASSWORD': 'NTExMmZhMmU3',
         'HOST': 'localhost',
         'PORT': '5432',
