@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 import requests
 from portal import functions as func
 from portal.models import Usuari, Registre
@@ -38,6 +39,16 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
-	
+def retrieve(request):
+    if request.method == "GET":
+      file_path='/tmp/usuaris.csv'    
+      Usuari.objects.to_csv(file_path)    
+      with open(file_path, 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type="application/csv")
+        response['Content-Disposition'] = 'inline; filename=usuaris.csv' 
+        return response
+      return HttpResponse(status=404)
+
+
 def view_404(request, exception=None):
   return redirect('/login/')

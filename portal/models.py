@@ -1,4 +1,5 @@
 from django.db import models
+from postgres_copy import CopyManager
 
 # Create your models here.
 
@@ -10,6 +11,8 @@ class Usuari(models.Model):
     nascut_a = models.CharField(max_length=100)
     resideix_a = models.CharField(max_length=100)
     registrat = models.DateTimeField(auto_now_add=True)
+    objects = CopyManager()
+
 
 class Registre(models.Model):
     ip = models.CharField(max_length=20, primary_key=True)
