@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from portal import views as PortalViews
+from portal import proxy 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', PortalViews.login),
     path('resources/', PortalViews.resources),
-    path('statistics/', PortalViews.retrieve),
+    path('statistics', PortalViews.retrieve),
+    path('wikipedia/',  proxy.WikiProxy.as_view(), name='proxy'), 
+    path('moodle/',  proxy.MoodleProxy.as_view(), name='proxy'), 
+    path('khanacademy/',  proxy.KhanProxy.as_view(), name='proxy'), 
     url(r'.*', PortalViews.view_404),
 ]
 

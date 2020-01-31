@@ -3,6 +3,9 @@ from django.http import HttpResponse
 import requests
 from portal import functions as func
 from portal.models import Usuari, Registre
+from inite.decorators import need_login
+
+
 
 # Create your views here.
 
@@ -35,6 +38,7 @@ def home(request):
             return redirect('mostrarUnitats')
         return render(request, 'home.html')
 
+@need_login
 def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
@@ -48,7 +52,10 @@ def retrieve(request):
         response['Content-Disposition'] = 'inline; filename=usuaris.csv' 
         return response
       return HttpResponse(status=404)
-
+@need_login
+def wikipedia(request):
+    if request.method == "GET":
+      print('hkhk')
 
 def view_404(request, exception=None):
   return redirect('/login/')
