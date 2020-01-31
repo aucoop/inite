@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', PortalViews.login),
     path('resources/', PortalViews.resources),
+    path('statistics/', PortalViews.retrieve),
     url(r'.*', PortalViews.view_404),
 ]
 
