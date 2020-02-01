@@ -54,15 +54,21 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
+#@authorization
 def retrieve(request):
     if request.method == "GET":
-      file_path='/tmp/usuaris.csv'    
-      Usuari.objects.to_csv(file_path)    
+      file_path='/tmp/usuaris.csv'
+      qs = Usuari.objects.filter(nom='quim')
+      Usuari.objects.filter(nom='quim').to_csv(file_path)
+      data_dict = qs.values("nom","cognom", "email", "edat", "nascut_a", "resideix_a", "registrat") #retorna un diccionari
+      print (data_dict)
+      #Usuari.objects.to_csv(file_path)    
       with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/csv")
         response['Content-Disposition'] = 'inline; filename=usuaris.csv' 
         return response
       return HttpResponse(status=404)
+
 @need_login
 def wikipedia(request):
     if request.method == "GET":

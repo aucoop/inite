@@ -13,3 +13,13 @@ def need_login(function):
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
+
+#def authorization(function):
+#  def wrap(request, *args, **kwargs):
+#     
+#  wrap.__doc__ = function.__doc__
+#  wrap.__name__ = function.__name__
+#  return wrap
+
+
+  
