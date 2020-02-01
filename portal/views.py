@@ -6,6 +6,7 @@ from portal.models import Usuari, Registre
 from inite.decorators import need_login
 import os
 import signal
+import datetime
 
 # Create your views here.
 
@@ -54,15 +55,31 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
+#@authorization
 def retrieve(request):
     if request.method == "GET":
-      file_path='/tmp/usuaris.csv'    
-      Usuari.objects.to_csv(file_path)    
+      dia = datetime.datetime.now().day
+      mes = datetime.datetime.now().month
+      aany = datetime.datetime.now().year
+      if 'dia' in request.GET:
+        dia = int(request.GET['dia'])
+      if 'mes' in request.GET:
+        mes = int(request.GET['mes'])
+      if 'any' in request.GET:
+        aany = int(request.GET['any'])
+      data = datetime.datetime(aany,mes,dia)
+      file_path='/tmp/usuaris.csv'
+      qs = Usuari.objects.filter(registrat__gt=data)
+      Usuari.objects.filter(registrat__gt = data).to_csv(file_path)
+      data_dict = qs.values("nom","cognom", "email", "edat", "nascut_a", "resideix_a", "registrat") #retorna un diccionari
+      print (data_dict)
+      #Usuari.objects.to_csv(file_path)    
       with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/csv")
         response['Content-Disposition'] = 'inline; filename=usuaris.csv' 
         return response
       return HttpResponse(status=404)
+
 @need_login
 def wikipedia(request):
     if request.method == "GET":
