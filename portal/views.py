@@ -6,6 +6,7 @@ from portal.models import Usuari, Registre
 from inite.decorators import need_login
 import os
 import signal
+import datetime
 
 # Create your views here.
 
@@ -56,9 +57,19 @@ def resources(request):
 #@authorization
 def retrieve(request):
     if request.method == "GET":
+      dia = datetime.datetime.now().day
+      mes = datetime.datetime.now().month
+      aany = datetime.datetime.now().year
+      if 'dia' in request.GET:
+        dia = request.GET['dia']
+      if 'mes' in request.GET:
+        mes = request.GET['mes']
+      if 'any' in request.GET:
+        aany = request.GET['any']
+      data = datetime.datetime(aany,mes,dia)
       file_path='/tmp/usuaris.csv'
-      qs = Usuari.objects.filter(nom='quim')
-      Usuari.objects.filter(nom='quim').to_csv(file_path)
+      qs = Usuari.objects.filter(registrat__gt=data)
+      Usuari.objects.filter(registrat__gt = data).to_csv(file_path)
       data_dict = qs.values("nom","cognom", "email", "edat", "nascut_a", "resideix_a", "registrat") #retorna un diccionari
       print (data_dict)
       #Usuari.objects.to_csv(file_path)    
