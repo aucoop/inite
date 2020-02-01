@@ -61,11 +61,11 @@ def retrieve(request):
       mes = datetime.datetime.now().month
       aany = datetime.datetime.now().year
       if 'dia' in request.GET:
-        dia = request.GET['dia']
+        dia = int(request.GET['dia'])
       if 'mes' in request.GET:
-        mes = request.GET['mes']
+        mes = int(request.GET['mes'])
       if 'any' in request.GET:
-        aany = request.GET['any']
+        aany = int(request.GET['any'])
       data = datetime.datetime(aany,mes,dia)
       file_path='/tmp/usuaris.csv'
       qs = Usuari.objects.filter(registrat__gt=data)
