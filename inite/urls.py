@@ -27,7 +27,6 @@ urlpatterns = [
     path('wikipedia/',  proxy.WikiProxy.as_view(), name='proxy'), 
     path('moodle/',  proxy.MoodleProxy.as_view(), name='proxy'), 
     path('khanacademy/',  proxy.KhanProxy.as_view(), name='proxy'), 
-    path('success.txt',  PortalViews.success, name='proxy'), 
     url(r'.*', PortalViews.view_404),
 ]
 

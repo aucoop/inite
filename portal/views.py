@@ -9,8 +9,6 @@ import signal
 
 # Create your views here.
 
-def success(request):
-  return HttpResponseNotFound('<h1>Page not found</h1>')
 def login(request):
   if request.method == 'GET':
     ip = func.get_client_ip(request)
