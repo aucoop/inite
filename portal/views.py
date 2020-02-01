@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 import requests
 from portal import functions as func
 from portal.models import Usuari, Registre
 from inite.decorators import need_login
-
-
+import os
+import signal
 
 # Create your views here.
 
+def success(request):
+  return HttpResponseNotFound('<h1>Page not found</h1>')
 def login(request):
   if request.method == 'GET':
     ip = func.get_client_ip(request)
@@ -30,6 +32,14 @@ def login(request):
       pass
     u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc)
     u.save()
+    # Send signal to fakeDNS.pid to make him update ip_table
+    try:
+      print("Ens disposem a enviar un signal...")
+      with open("/tmp/fakeDNS.pid","r") as pid_file:
+        print("Hem pogut obrir el fitcher del pid")
+        os.kill(int(pid_file.read()), signal.SIGUSR1)
+    except Exception as e:
+      print("Error enviant signal a fakeDNS: ", e)
     return redirect('/resources/')
 
 def home(request):

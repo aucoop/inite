@@ -1,0 +1,11 @@
+[Unit]
+Description=DNS del projecte
+
+[Service]
+Envirionment=PYTHONUNBUFFERED=1
+Restart=on-failure
+ExecStart=/usr/bin/python2 /usr/bin/fakeDNS.py
+
+[Install]
+WantedBy=default.target
+
