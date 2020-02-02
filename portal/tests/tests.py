@@ -22,4 +22,5 @@ class loginViewTest(TestCase):
     self.ip = Seeder.create_fake_registry().ip
     response = self.client.get('/login',REMOTE_ADDR=self.ip)
     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
-    self.assertTemplateUsed(response, 'index.html')
+    self.assertTemplateNotUsed(response, 'login.html')
+    self.assertRedirects(response, '/resources')
