@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+	  <title>
+      Login
+    </title>
+    <meta charset="utf-8">
+                
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"> </script>
+
+	</head>
+  
+
+	<body style="background-image: url('../static/src/background.jpg'); background-repeat: no-repeat; background-size: cover;">
+   <div class="text-center test2">
+    <br>    
+    <p>
+      Pour accéder à Internet, entrez vos informations ici s'il vous plaît. 
+    </p>
+    
+  </div>
+  <br>
+  <div class="center-block login">
+  <div class="option justified" >
+  <br>
+   <form   action="/login/" method="post"> {% csrf_token %}
+  <div class="row" >
+  
+  
+    <div class="col-md-4 bfont">Nom:</div>    <div class="col-md-6"> <input type="text" name="fname" required></div>
+     <div class="col-sm-12"><br></div>
+    <div class="col-md-4 bfont">Prénom:</div>     <div class="col-md-6"> <input type="text" name="lname" required></div>
+     <div class="col-sm-12"><br></div>
+    <div class="col-md-4  bfont">Lieu de naissance:</div>    <div class="col-md-6"> <input type="text" name="lloc" required></div>    
+     <div class="col-sm-12"><br></div>
+    <div class="col-md-4  bfont">Lieu de résidence:</div>    <div class="col-md-6"> <input type="text" name="lloc" required></div>
+     <div class="col-sm-12"><br></div>
+    <div class="col-md-4 bfont">L'âge:</div>    <div class="col-md-6"><input type="number" name="edat" min="4" max="90" value="4" required></div>
+     <div class="col-sm-12"><br></div>
+    <div class="col-md-4 bfont">Email (non requis):</div>    <div class="col-md-6"><input type="number" name="edat" min="4" max="90" value="4"></div>
+     <div class="col-sm-12"><br></div>
+
+
+  </div>
+  <input class="btn btn-primary" type="submit" value="Envoyer">
+</form> 
+<br>
+	</div>
+  </div>
+  </div>
+	</body>
+</html>
+

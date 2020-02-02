@@ -1,51 +1,145 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
-	<head>
-	  <title>
-      Login
-    </title>
-    <meta charset="utf-8">
-                
-		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
-    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"> </script>
+<html lang="en">
+<head>
+	<title>Login Portal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'login/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: grey;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('../static/src/background.jpg');">
+        <div class="box-texte">
+          <h1> Dunia Kato Senegal</h1>
+          <br>
+          <div class="texte">
+            flsdlkl ksjf kjs dklfjs kfjs akfjs kfjas kfjlsj flj lj lkj lj lj .
+jasjf sjf sdkjf slfj lsdfmlm f. fsf fjklsj f.
+sadfsdfasdf  df f f 
+          </div>
+        </div>
+      </div>
 
-	</head>
-  
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<form class="login100-form validate-form" action"/login" method="post"> {% csrf_token %}  
+					<span class="login100-form-title p-b-59">
+						Accéder au réseau:
+					</span>
 
-	<body style="background-image: url('../static/src/background.jpg'); background-repeat: no-repeat; background-size: cover;">
-   <div class="text-center test2">
-    <br>    
-    <p>
-      Pour accéder à Internet, entrez vos informations ici s'il vous plaît. 
-    </p>
-    
-  </div>
-  <br>
-  <div class="center-block login">
-  <div class="option justified" >
-  <br>
-   <form   action="/login/" method="post"> {% csrf_token %}
-  <div class="row" >
-  
-  
-    <div class="col-md-4 bfont">Nom:</div>    <div class="col-md-6"> <input type="text" name="fname" required></div>
-     <div class="col-sm-12"><br></div>
-    <div class="col-md-4 bfont">Prénom:</div>     <div class="col-md-6"> <input type="text" name="lname" required></div>
-     <div class="col-sm-12"><br></div>
-    <div class="col-md-4  bfont">Lieu d'origine:</div>    <div class="col-md-6"> <input type="text" name="lloc" required></div>
-     <div class="col-sm-12"><br></div>
-    <div class="col-md-4 bfont">L'âge:</div>    <div class="col-md-6"><input type="number" name="edat" min="4" max="90" value="4" required></div>
-     <div class="col-sm-12"><br></div>
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">Nom</span>
+						<input class="input100" type="text" name="fname" placeholder="Nom..." required>
+						<span class="focus-input100"></span>
+					</div>
 
-  </div>
-  <input class="btn btn-primary" type="submit" value="Envoyer">
-</form> 
-<br>
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Prénom</span>
+						<input class="input100" type="text" name="lname" placeholder="Prénom..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<span class="label-input100">Lieu de naissance</span>
+						<input class="input100" type="text" name="lloc_n" placeholder="Lieu de naissance..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">Lieu de résidence</span>
+						<input class="input100" type="text" name="lloc_r" placeholder="Lieu de résidence... " required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">L'âge</span>
+						<input class="input100" type="number" name="edat" min="4" max="90" placeholder="4" required>
+						<span class="focus-input100"></span>
+					</div>
+
+
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" name="lloc_r" placeholder="L'adresse électronique... " >
+						<span class="focus-input100"></span>
+					</div>
+
+
+
+					<div class="flex-m w-full p-b-33">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" required>
+							<label class="label-checkbox100" for="ckb1">
+								<span class="txt1">
+									je suis d'accord avec le
+									<a href="#" class="txt2 hov1">
+										Conditions d'utilisation
+									</a>
+								</span>
+							</label>
+						</div>
+
+						
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Envoyer
+							</button>
+						</div>
+
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-  </div>
-  </div>
-	</body>
-</html>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
 
+</body>
+</html>
