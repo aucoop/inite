@@ -43,6 +43,9 @@ def login(request):
       print("Error enviant signal a fakeDNS: ", e)
     return redirect('/resources/')
 
+def debug(request):
+  return render(request,'login.html')
+
 def home(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
