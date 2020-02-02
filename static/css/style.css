@@ -21,14 +21,18 @@ body {
   border-bottom-right-radius: 25px;
 font-family: "Comic Sans MS", sans-serif;
 }
-.test2 {
+.topline {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: grey;
-  border-bottom: 2px solid #646464;
-  color: black;
+  border-bottom: 5px solid green;
+}
+
+.header {
+
+  background-color: green;
   font-family: "Comic Sans MS", sans-serif;
+  color: black;
 }
 
 .bfont {
@@ -52,8 +56,16 @@ font-family: "Comic Sans MS", sans-serif;
 }
 
 .login {
-  margin-left: 30%;
-  margin-right: 30%;
+	background-color: white;
+	border: 1px solid black;
+  border-top: 0px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-left: 1px;
+  margin-right: 5%;
+  
+  text-align: center;
+	margin-bottom: 10px;
 }
 
 div .option {
