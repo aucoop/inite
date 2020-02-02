@@ -1,222 +1,145 @@
-i<!DOCTYPE html>
-<html>
-  <head>
-    <title>Research Application Form</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <style>
-      html, body {
-      min-height: 100%;
-      }
-      body, div, form, input, select, textarea, p { 
-      padding: 0;
-      margin: 0;
-      outline: none;
-      font-family: Roboto, Arial, sans-serif;
-      font-size: 14px;
-      color: #666;
-      line-height: 22px;
-      }
-      h1 {
-      position: absolute;
-      margin: 0;
-      font-size: 32px;
-      color: #fff;
-      z-index: 2;
-      }
-      h5 {
-      margin: 10px 0;
-      }
-      .testbox {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: inherit;
-      padding: 20px;
-      }
-      form {
-      width: 100%;
-      padding: 20px;
-      border-radius: 6px;
-      background: #fff;
-      box-shadow: 0 0 20px 0 #095484; 
-      }
-      .banner {
-      position: relative;
-      height: 210px;
-      background-image: url("/uploads/media/default/0001/01/c43630149befa5c9559813f72e99bcb6bf149e62.jpeg");  
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      }
-      .banner::after {
-      content: "";
-      background-color: rgba(0, 0, 0, 0.5); 
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      }
-      input, select, textarea {
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      }
-      input {
-      width: calc(100% - 10px);
-      padding: 5px;
-      }
-      select {
-      width: 100%;
-      padding: 7px 0;
-      background: transparent;
-      }
-      textarea {
-      width: calc(100% - 12px);
-      padding: 5px;
-      }
-      .item:hover p, .item:hover i, .question:hover p, .question label:hover, input:hover::placeholder, a {
-      color: #095484;
-      }
-      .item input:hover, .item select:hover, .item textarea:hover {
-      border: 1px solid transparent;
-      box-shadow: 0 0 6px 0 #095484;
-      color: #095484;
-      }
-      .item {
-      position: relative;
-      margin: 10px 0;
-      }
-      input[type="date"]::-webkit-inner-spin-button {
-      display: none;
-      }
-      .item i, input[type="date"]::-webkit-calendar-picker-indicator {
-      position: absolute;
-      font-size: 20px;
-      color: #a9a9a9;
-      }
-      .item i {
-      right: 2%;
-      top: 30px;
-      z-index: 1;
-      }
-      [type="date"]::-webkit-calendar-picker-indicator {
-      right: 1%;
-      z-index: 2;
-      opacity: 0;
-      cursor: pointer;
-      }
-      input[type=radio], input[type=checkbox]  {
-      display: none;
-      }
-      label.radio, label.check {
-      position: relative;
-      display: inline-block;
-      margin: 5px 20px 15px 0;
-      cursor: pointer;
-      }
-      .question span {
-      margin-left: 30px;
-      }
-      span.required {
-      margin-left: 0;
-      color: red;
-      }
-      .checkbox-item label {
-      margin: 5px 20px 10px 0;
-      }
-      label.radio:before, label.check:before {
-      content: "";
-      position: absolute;
-      left: 0;
-      }
-      label.radio:before {
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      border: 2px solid #095484;
-      }
-      label.check:before {
-      top: 2px;
-      width: 16px;
-      height: 16px;
-      border-radius: 2px;
-      border: 1px solid #095484;
-      }
-      input[type=checkbox]:checked + .check:before {
-      background: #095484;
-      }
-      label.radio:after {
-      left: 5px;
-      border: 3px solid #095484;
-      }
-      label.check:after {
-      left: 4px;
-      border: 3px solid #fff;
-      }
-      label.radio:after, label.check:after {
-      content: "";
-      position: absolute;
-      top: 6px;
-      width: 8px;
-      height: 4px;
-      background: transparent;
-      border-top: none;
-      border-right: none;
-      transform: rotate(-45deg);
-      opacity: 0;
-      }
-      input[type=radio]:checked + label:after, input[type=checkbox]:checked + label:after {
-      opacity: 1;
-      }
-      .btn-block {
-      margin-top: 10px;
-      text-align: center;
-      }
-      button {
-      width: 150px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px; 
-      background: #095484;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-      }
-      button:hover {
-      background: #0666a3;
-      }
-      @media (min-width: 568px) {
-      .city-item {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      }
-      .city-item input {
-      width: calc(50% - 20px);
-      }
-      .city-item select {
-      width: calc(50% - 8px);
-      }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="testbox">
-    <form action="/retrieve" method="get" id="form1">
-      <div class="banner">
-        <h1>Formulaire de téléchargement de données Dunia Kato Sénégal</h1>
-      </div>
-      <div class="item">
-        <p>Les données après la date indiquées sont téléchargées.</p>
-        <input type="date" name="date" required/>
-        <i class="fas fa-calendar-alt"></i>
-      </div>
-             <div class="btn-block">
-          <button type="submit" form="form1" value="Submit">Téléchargez</button>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login Portal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'login/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/iconic/css/material-design-iconic-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: grey;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('../static/src/background.jpg');">
+        <div class="box-texte">
+          <h1> Dunia Kato Senegal</h1>
+          <br>
+          <div class="texte">
+            flsdlkl ksjf kjs dklfjs kfjs akfjs kfjas kfjlsj flj lj lkj lj lj .
+jasjf sjf sdkjf slfj lsdfmlm f. fsf fjklsj f.
+sadfsdfasdf  df f f 
+          </div>
         </div>
-    </form>
-    </div>
-  </body>
+      </div>
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<form class="login100-form validate-form" action"/login" method="post"> {% csrf_token %}  
+					<span class="login100-form-title p-b-59">
+						Accéder au réseau:
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">Nom</span>
+						<input class="input100" type="text" name="fname" placeholder="Nom..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Prénom</span>
+						<input class="input100" type="text" name="lname" placeholder="Prénom..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<span class="label-input100">Lieu de naissance</span>
+						<input class="input100" type="text" name="lloc_n" placeholder="Lieu de naissance..." required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">Lieu de résidence</span>
+						<input class="input100" type="text" name="lloc_r" placeholder="Lieu de résidence... " required>
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">L'âge</span>
+						<input class="input100" type="number" name="edat" min="4" max="90" placeholder="4" required>
+						<span class="focus-input100"></span>
+					</div>
+
+
+
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" name="lloc_r" placeholder="L'adresse électronique... " >
+						<span class="focus-input100"></span>
+					</div>
+
+
+
+					<div class="flex-m w-full p-b-33">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" required>
+							<label class="label-checkbox100" for="ckb1">
+								<span class="txt1">
+									je suis d'accord avec le
+									<a href="#" class="txt2 hov1">
+										Conditions d'utilisation
+									</a>
+								</span>
+							</label>
+						</div>
+
+						
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">
+								Envoyer
+							</button>
+						</div>
+
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
 </html>
