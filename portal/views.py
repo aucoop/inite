@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import F
 from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
@@ -65,16 +66,25 @@ def retrieve(request):
       dia = datetime.datetime.now().day
       mes = datetime.datetime.now().month
       aany = 2019
+      date = list([aany,mes,dia])
       if 'date' in request.GET:
         date = request.GET['date'].split('-')
-      print (date)
       data = datetime.datetime(int(date[0]), int(date[1]), int(date[2]))
       file_path='/tmp/usuaris.csv'
-      qs = Usuari.objects.filter(registrat__gt=data)
-      Usuari.objects.filter(registrat__gt = data).to_csv(file_path)
-      data_dict = qs.values("nom","cognom", "email", "edat", "nascut_a", "resideix_a", "registrat") #retorna un diccionari
-      print (data_dict)
-      #Usuari.objects.to_csv(file_path)    
+      Usuari.objects.filter(registrat__gt = data).extra(
+        select={
+          'Prénom': 'nom',
+          'Nom': 'cognom',
+          'Email': 'email',
+          'Âge': 'edat',
+          'Lieu de naissance': 'nascut_a',
+          'Lieu de résidence': 'resideix_a',
+          'Date de connexion': 'registrat'
+
+        }
+      ).values(
+        'Prénom', 'Nom', 'Email', 'Âge', 'Lieu de naissance', 'Lieu de résidence', 'Date de connexion'
+      ).to_csv(file_path)
       with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/csv")
         response['Content-Disposition'] = 'inline; filename=usuaris.csv' 
