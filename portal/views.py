@@ -35,9 +35,7 @@ def login(request):
       u.save()
       # Send signal to fakeDNS.pid to make him update ip_table
       try:
-        print("Ens disposem a enviar un signal...")
         with open("/tmp/fakeDNS.pid","r") as pid_file:
-          print("Hem pogut obrir el fitcher del pid")
           os.kill(int(pid_file.read()), signal.SIGUSR1)
       except Exception as e:
         print("Error enviant signal a fakeDNS: ", e)
@@ -65,7 +63,6 @@ def retrieve(request):
       qs = Usuari.objects.filter(registrat__gt=data)
       Usuari.objects.filter(registrat__gt = data).to_csv(file_path)
       data_dict = qs.values("nom","cognom", "email", "edat", "nascut_a", "resideix_a", "registrat") #retorna un diccionari
-      print (data_dict)
       #Usuari.objects.to_csv(file_path)    
       with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/csv")
