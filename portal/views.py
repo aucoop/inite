@@ -37,9 +37,7 @@ def login(request):
       u.save()
       # Send signal to fakeDNS.pid to make him update ip_table
       try:
-        print("Ens disposem a enviar un signal...")
         with open("/tmp/fakeDNS.pid","r") as pid_file:
-          print("Hem pogut obrir el fitcher del pid")
           os.kill(int(pid_file.read()), signal.SIGUSR1)
       except Exception as e:
         print("Error enviant signal a fakeDNS: ", e)

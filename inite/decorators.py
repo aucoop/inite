@@ -11,7 +11,6 @@ def need_login(function):
           r = models.Registre.objects.get(ip=IP)
           return function(request, *args, **kwargs)
         except Exception as e:
-          print("Decorator error: " + str(e))
           return redirect('login')
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
