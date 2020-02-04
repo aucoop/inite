@@ -27,6 +27,46 @@ class loginViewTest(TestCase):
   def test_view_login_POST_logged(self):
     pass
   
+  @skip("implement")
+  def test_home_redirect_login_logged(self):
+    pass
+
+  @skip("implement")
+  def test_home_redirect_login_no_logged(self):
+    pass
+
+  @skip("implement")
+  def test_view_resources_logged(self):
+    pass
+
+  @skip("implement")
+  def test_view_resources_no_logged(self):
+    pass
+
+  @skip("implement")
+  def test_view_retrieve_athenticated(self):
+    pass
+
+  @skip("implement")
+  def test_view_retrieve_no_authenticated(self):
+    pass
+
+  @skip("implement")
+  def test_view_retrieve_frontend(self):
+    pass
+
+  @skip("implement")
+  def test_proxy_wikipedia(self):
+    pass
+
+  @skip("implement")
+  def test_proxy_moodle(self):
+    pass
+
+  @skip("implement")
+  def test_proxy_khanacademy(self):
+    pass
+
   def test_view_login_redirect_if_logged(self):
     self.ip = Seeder.create_fake_registry().ip
     response = self.client.get('/login',REMOTE_ADDR=self.ip)
