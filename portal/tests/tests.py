@@ -2,6 +2,7 @@ from django.test import TestCase, RequestFactory
 from unittest.case import skip
 from rest_framework import status
 import portal.views as my_view
+from django.conf import settings
 
 from portal import models
 from portal.tests.test_utils import Seeder
@@ -44,16 +45,33 @@ class loginViewTest(TestCase):
     pass
 
   @skip("implement")
-  def test_view_retrieve_athenticated(self):
-    pass
+  def test_view_retrieve_no_athenticated(self):
+    username = settings.BASICAUTH_USERS.keys()[0]
+    password = setting.BASICAUTH_USERS[username]
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode('frewfrewfre:frewfrew'), 
+    }
+    c = self.client
+    response = c.get('/retrieve', **auth_headers)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
   @skip("implement")
-  def test_view_retrieve_no_authenticated(self):
-    pass
+  def test_view_retrieve_authenticated(self):
+    username = settings.BASICAUTH_USERS.keys()[0]
+    password = setting.BASICAUTH_USERS[username]
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode('%s:%s' % (username,password) ), 
+    }
+    c = self.client
+    response = c.get('/retrieve', **auth_headers)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+
 
   @skip("implement")
   def test_view_retrieve_frontend(self):
-    pass
+    response = self.client.get('/statistics')
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertTemplateUsed(response, 'statistics.html')
 
   @skip("implement")
   def test_proxy_wikipedia(self):
