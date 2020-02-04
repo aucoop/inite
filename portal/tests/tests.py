@@ -53,7 +53,7 @@ class loginViewTest(TestCase):
     }
     c = self.client
     response = c.get('/retrieve', **auth_headers)
-    self.assertEqual(response.status_code, status.HTTP_)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
   @skip("implement")
   def test_view_retrieve_authenticated(self):
