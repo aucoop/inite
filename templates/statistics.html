@@ -4,70 +4,32 @@
 <head>
 	<title>Téléchargement des données</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{% static 'login/images/icons/favicon.ico' %}"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+		<script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"> </script>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/fonts/iconic/css/material-design-iconic-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'login/vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
-<!--===============================================================================================-->
-</head>
+  </head>
 <body style="background-color: grey;">
 	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="login100-more" style="background-image: url('../static/src/background.jpg');">
-        <div class="box-texte">
-          <h1> Dunia Kato Senegal</h1>
-          <br>
-          <div class="texte">
-            flsdlkl ksjf kjs dklfjs kfjs akfjs kfjas kfjlsj flj lj lkj lj lj .
-jasjf sjf sdkjf slfj lsdfmlm f. fsf fjklsj f.
-sadfsdfasdf  df f f 
-          </div>
-          <div>      </div>
-          <div class="option">
-            Hola que tal
-          </div>
+  <div class="login100-more " style="background-image: url('../static/src/background.jpg');">
+    <div class="center">
+      <div class="caixa" style="margin-top: 10%">
+      <form action="/retrieve" method="get" id="form1">
+        <div class="titol">
+          <strong> Formulaire de téléchargement de données Dunia Kato Sénégal</strong>
         </div>
-      </div>
-		</div>
-	</div>
+        <div >
+          <p>Les données après la date indiquées sont téléchargées.</p>
+          </div>
+        <div class="center" style="padding-bottom: 20px">
+          <input style="float: left; margin-right: 5px;" type="date" name="date" required/>
+          <button class="btn btn-success end" type="submit" form="form1" value="Submit">Téléchargez</button>
+        </div>
+      </form>
+ 
+    </div>
+    </div>
 	
-<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/daterangepicker/moment.min.js"></script>
-	<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
 
 </body>
 </html>
