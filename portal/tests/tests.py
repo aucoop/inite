@@ -1,4 +1,5 @@
 from django.test import TestCase, RequestFactory
+from unittest.case import skip
 from rest_framework import status
 import portal.views as my_view
 
@@ -18,6 +19,14 @@ class loginViewTest(TestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertTemplateUsed(response, 'login.html')
 
+  @skip("implement")
+  def test_view_login_POST_not_logged(self):
+    pass
+  
+  @skip("implement")
+  def test_view_login_POST_logged(self):
+    pass
+  
   def test_view_login_redirect_if_logged(self):
     self.ip = Seeder.create_fake_registry().ip
     response = self.client.get('/login',REMOTE_ADDR=self.ip)
