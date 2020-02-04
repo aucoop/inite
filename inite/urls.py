@@ -20,9 +20,11 @@ from portal import views as PortalViews
 from portal import proxy 
 
 urlpatterns = [
-    url(r'^login$', PortalViews.login, name='login'),
     url(r'^resources$', PortalViews.resources, name='resources'),
-    url(r'^statistics$', PortalViews.retrieve, name='statistics'),
+    url(r'^login$', PortalViews.login, name='login'),
+    url(r'^debug$', PortalViews.debug, name='debug'),
+    url(r'^statistics$', PortalViews.retrieve_frontend, name='statistics'),
+    url(r'^retrieve$', PortalViews.retrieve, name='retrieve'),
     url(r'^wikipedia$',  proxy.WikiProxy.as_view(), name='proxy'), 
     url(r'^moodle$',  proxy.MoodleProxy.as_view(), name='proxy'), 
     url(r'^khanacademy$',  proxy.KhanProxy.as_view(), name='proxy'), 
