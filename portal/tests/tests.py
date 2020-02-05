@@ -3,7 +3,7 @@ from unittest.case import skip
 from rest_framework import status
 import portal.views as my_view
 from django.conf import settings
-
+import base64
 from portal import models
 from portal.tests.test_utils import Seeder
 
@@ -44,30 +44,25 @@ class loginViewTest(TestCase):
   def test_view_resources_no_logged(self):
     pass
 
-  @skip("implement")
   def test_view_retrieve_no_athenticated(self):
-    username = settings.BASICAUTH_USERS.keys()[0]
-    password = setting.BASICAUTH_USERS[username]
     auth_headers = {
-    'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode('frewfrewfre:frewfrew'), 
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode('frewfrewfre:frewfrew'.encode('utf-8'))), 
     }
     c = self.client
     response = c.get('/retrieve', **auth_headers)
-    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-  @skip("implement")
   def test_view_retrieve_authenticated(self):
-    username = settings.BASICAUTH_USERS.keys()[0]
-    password = setting.BASICAUTH_USERS[username]
+    username =list( settings.BASICAUTH_USERS.keys())[0]
+    password = settings.BASICAUTH_USERS[username]
     auth_headers = {
-    'HTTP_AUTHORIZATION': 'Basic ' + base64.b64encode('%s:%s' % (username,password) ), 
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
     }
     c = self.client
     response = c.get('/retrieve', **auth_headers)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
-  @skip("implement")
   def test_view_retrieve_frontend(self):
     response = self.client.get('/statistics')
     self.assertEqual(response.status_code, status.HTTP_200_OK)
