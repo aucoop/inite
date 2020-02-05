@@ -25,7 +25,9 @@ def login(request):
     if request.method == 'POST':
       nom = request.POST.get('fname', '')
       cognom = request.POST.get('lname', '')
-      lloc = request.POST.get('lloc', '')
+      lloc_r = request.POST.get('lloc_r', '')
+      lloc_n = request.POST.get('lloc_n', '')
+      email = request.POST.get('email', '')
       edat = request.POST.get('edat', '')
       ip = func.get_client_ip(request)
       try:
@@ -33,7 +35,7 @@ def login(request):
         r.save()
       except:
         pass
-      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc)
+      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, nascut_a=lloc_n, email=email)
       u.save()
       # Send signal to fakeDNS.pid to make him update ip_table
       try:
