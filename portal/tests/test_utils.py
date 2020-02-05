@@ -8,7 +8,7 @@ class Seeder:
     return models.Registre.objects.create(ip=IP)
  
   @staticmethod
-  def generate_random_string(size=5, chars=strings.ascii_uppercase+strings.ascii_lowercase):
+  def generate_random_string(size=5, chars=string.ascii_uppercase+string.ascii_lowercase):
     return ''.join(random.choice(chars) for x in range(size))
 
   @staticmethod
