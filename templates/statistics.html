@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Téléchargement des données</title>
+	<title>Admin Page</title>
 	<meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
@@ -12,24 +12,66 @@
 <body style="background-color: grey;">
 	
   <div class="login100-more " style="background-image: url('../static/src/background.jpg');">
+    <div class="tarja">  
     <div class="center">
-      <div class="caixa" style="margin-top: 10%">
-      <form action="/retrieve" method="get" id="form1">
-        <div class="titol">
-          <strong> Formulaire de téléchargement de données Dunia Kato Sénégal</strong>
-        </div>
-        <div >
-          <p>Les données après la date indiquées sont téléchargées.</p>
+      <div class="caixa" >
+        <form action="/retrieve" method="get" id="form1">
+          <div class="titol">
+            <strong> Formulaire de téléchargement de données Dunia Kato Sénégal</strong>
           </div>
-        <div class="center" style="padding-bottom: 20px">
-          <input style="float: left; margin-right: 5px;" type="date" name="date" required/>
-          <button class="btn btn-success end" type="submit" form="form1" value="Submit">Téléchargez</button>
-        </div>
-      </form>
- 
+          <div >
+            <p>Les données après la date indiquées sont téléchargées.</p>
+          </div>
+          <div class="center" style="padding-bottom: 20px">
+            <input style="float: left; margin-right: 5px;"   type="date" name="date" required/>
+            <button class="btn btn-success end" type="submit" form="form1" value="Submit">Téléchargez</button>
+          </div>
+        </form>
+      </div>
     </div>
     </div>
-	
+    <div class="tarja">  
+    <div class="center">
+      <div class="caixa" >
+        <form action="/chpasswd" method="post" id="form2">
+          <div class="titol">
+            <strong>Formulaire pour changer le mot de passe d'administration</strong>
+          </div>
+          <div style=" padding-bottom: 5px;">
+            Nouveau nom d'utilisateur: <br>  <input  style=" margin-right: 5px;" type="text" name="user" required/> 
+          </div>
+          <div style=" padding-bottom: 5px;">
+            Nouveau mot de passe:  <br> <input  style=" margin-right: 5px;" id="password" type="password" name="passwd" required/> 
+          </div>
+          <div style="padding-bottom: 20px;">
+            Répétez le nouveau mot de passe: <br>  <input style=" margin-right: 5px;" id="confirm_password" type="password" name="passwd-repeat" required/> 
+          </div>
+          <div style="padding-bottom: 20px;">
+            <button class="btn btn-success end" type="submit" form="form2" value="Submit">Envoyer</button>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+    </div>
+	</div>
+<script>
 
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Le mot de passe ne correspond pas");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+</script>
 </body>
 </html>
