@@ -14,12 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from django.conf.urls import url
 from portal import views as PortalViews
 from portal import proxy 
 
 urlpatterns = [
+    url(r'^adm/login', auth_views.LoginView.as_view(), name="adm_login"),
     url(r'^resources$', PortalViews.resources, name='resources'),
     url(r'^login$', PortalViews.login, name='login'),
     url(r'^chpasswd$', PortalViews.retrieve_canvi_contrasenya, name='chpasswd'),

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
@@ -63,7 +64,7 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
-@basic_auth_required
+@login_required()
 def retrieve_canvi_contrasenya(request):
   if request.method == 'POST':
     user = request.POST.get('user')
@@ -71,13 +72,13 @@ def retrieve_canvi_contrasenya(request):
     nou = {user:passwd}
     settings.BASICAUTH_USERS = nou
 
-@basic_auth_required
+@login_required()
 def retrieve_frontend(request):
   if request.method == 'GET':
     return render(request,'statistics.html')
 
 
-@basic_auth_required
+@login_required()
 def retrieve(request):
     if request.method == "GET":
       dia = timezone.now().day
