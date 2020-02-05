@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.db.models import F
 from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
@@ -8,7 +7,8 @@ from portal.models import Usuari, Registre
 from inite.decorators import need_login
 import os
 import signal
-import datetime
+#import datetime
+from django.utils import timezone 
 
 # Create your views here.
 
@@ -71,13 +71,13 @@ def retrieve_frontend(request):
 @basic_auth_required
 def retrieve(request):
     if request.method == "GET":
-      dia = datetime.datetime.now().day
-      mes = datetime.datetime.now().month
+      dia = timezone.now().day
+      mes = timezone.now().month
       aany = 2019
       date = list([aany,mes,dia])
       if 'date' in request.GET:
         date = request.GET['date'].split('-')
-      data = datetime.datetime(int(date[0]), int(date[1]), int(date[2]))
+      data = timezone.datetime(int(date[0]), int(date[1]), int(date[2]))
       file_path='/tmp/usuaris.csv'
       Usuari.objects.filter(registrat__gt = data).extra(
         select={
