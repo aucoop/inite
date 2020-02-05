@@ -22,7 +22,12 @@ class loginViewTest(TestCase):
 
   @skip("implement")
   def test_view_login_POST_not_logged(self):
-    pass
+    obj = Seeder.generate_fake_user()
+    response = self.client.post('/login', obj, format='json')
+    self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    self.assertTemplateNotUsed(response, 'login.html')
+    self.assertRedirects(response, '/resources')
+    u = models.Usuari.objects.get(nom=obj['fname'], cognom=obj['lname'], edat=obj['edat'], resideix_a=obj['lloc_r'], nascut_a=obj['lloc_n'], email=obj['email'])
   
   @skip("implement")
   def test_view_login_POST_logged(self):
@@ -36,13 +41,16 @@ class loginViewTest(TestCase):
   def test_home_redirect_login_no_logged(self):
     pass
 
-  @skip("implement")
   def test_view_resources_logged(self):
-    pass
+    self.ip = Seeder.create_fake_registry().ip
+    response = self.client.get('/resources',REMOTE_ADDR=self.ip)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-  @skip("implement")
   def test_view_resources_no_logged(self):
-    pass
+    response = self.client.get('/resources')
+    self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    self.assertTemplateNotUsed(response, 'resources.html')
+    self.assertRedirects(response, '/login')
 
 
   @skip("implement")

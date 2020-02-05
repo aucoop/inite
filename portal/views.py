@@ -20,28 +20,34 @@ def login(request):
     return redirect('resources')
   
   except:
-    
     if request.method == 'GET':
       return render(request, 'login.html')
-    if request.method == 'POST':
+
+    elif request.method == 'POST':
       nom = request.POST.get('fname', '')
       cognom = request.POST.get('lname', '')
-      lloc = request.POST.get('lloc', '')
+      lloc_r = request.POST.get('lloc_r', '')
+      lloc_n = request.POST.get('lloc_n', '')
+      email = request.POST.get('email', '')
       edat = request.POST.get('edat', '')
+
       ip = func.get_client_ip(request)
       try:
+        # Adding entry with ip registred
         r = Registre(ip=ip)
         r.save()
-      except:
-        pass
-      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc)
-      u.save()
-      # Send signal to fakeDNS.pid to make him update ip_table
-      try:
-        with open("/tmp/fakeDNS.pid","r") as pid_file:
-          os.kill(int(pid_file.read()), signal.SIGUSR1)
+        try:
+          # Send signal to fakeDNS.pid to make him update ip_table
+          with open("/tmp/fakeDNS.pid","r") as pid_file:
+            os.kill(int(pid_file.read()), signal.SIGUSR1)
+        except Exception as e:
+          print("Error enviant signal a fakeDNS: ", e)
+          pass
       except Exception as e:
-        print("Error enviant signal a fakeDNS: ", e)
+        print("Error registrant ip: " + e)
+
+      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, nascut_a=lloc_n, email=email)
+      u.save()
       return redirect('/resources/')
     
 def debug(request):
