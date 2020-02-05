@@ -22,6 +22,7 @@ from portal import proxy
 
 urlpatterns = [
     url(r'^adm/login', auth_views.LoginView.as_view(), name="adm_login"),
+    url(r'^adm/logout', auth_views.LogoutView.as_view(), name="adm_logout"),
     url(r'^resources$', PortalViews.resources, name='resources'),
     url(r'^login$', PortalViews.login, name='login'),
     url(r'^chpasswd$', PortalViews.retrieve_canvi_contrasenya, name='chpasswd'),
