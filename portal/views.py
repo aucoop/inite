@@ -56,7 +56,12 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
+@basic_auth_required
+def retrieve_canvi_contrasenya(request):
+  if request.method == 'POST':
+    pass
 
+@basic_auth_required
 def retrieve_frontend(request):
   if request.method == 'GET':
     return render(request,'statistics.html')
