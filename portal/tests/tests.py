@@ -44,6 +44,26 @@ class loginViewTest(TestCase):
   def test_view_resources_no_logged(self):
     pass
 
+  def test_canvi_de_password_retrieve(self):
+    vell = settings.BASICAUTH_USERS
+    nou = {'test':'test'}
+    data =  {'user':'test', 'passwd':'test'}
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
+    }
+    response = self.client.post('/chpasswd',data, **auth_headers)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(settings.BASICAUTH_USERS,nou)
+    username =list(vell.keys())[0]
+    password = vell[username]
+    data = {'user':username, 'passwd': password}
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
+    }
+    response = self.client.post('/chpasswd',data)
+    self.assertEqual(settings.BASICAUTH_USERS,vell)
+    
+
   def test_view_retrieve_no_athenticated(self):
     auth_headers = {
     'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode('frewfrewfre:frewfrew'.encode('utf-8'))), 
@@ -62,9 +82,11 @@ class loginViewTest(TestCase):
     response = c.get('/retrieve', **auth_headers)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
   def test_view_retrieve_frontend(self):
     response = self.client.get('/statistics')
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
+    }
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertTemplateUsed(response, 'statistics.html')
 

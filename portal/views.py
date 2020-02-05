@@ -3,6 +3,7 @@ from django.db.models import F
 from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
+from django.conf import settings
 from portal import functions as func
 from portal.models import Usuari, Registre
 from inite.decorators import need_login
@@ -59,7 +60,10 @@ def resources(request):
 @basic_auth_required
 def retrieve_canvi_contrasenya(request):
   if request.method == 'POST':
-    pass
+    user = request.POST.get('user')
+    passwd = request.POST.get('passwd')
+    nou = {user:passwd}
+    settings.BASICAUTH_USERS = nou
 
 @basic_auth_required
 def retrieve_frontend(request):
