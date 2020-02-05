@@ -44,18 +44,20 @@ class loginViewTest(TestCase):
   def test_view_resources_no_logged(self):
     pass
 
+
+  @skip("implement")
   def test_canvi_de_password_retrieve(self):
     vell = settings.BASICAUTH_USERS
     nou = {'test':'test'}
     data =  {'user':'test', 'passwd':'test'}
+    username =list(vell.keys())[0]
+    password = vell[username]
     auth_headers = {
     'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
     }
     response = self.client.post('/chpasswd',data, **auth_headers)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertEqual(settings.BASICAUTH_USERS,nou)
-    username =list(vell.keys())[0]
-    password = vell[username]
     data = {'user':username, 'passwd': password}
     auth_headers = {
     'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
