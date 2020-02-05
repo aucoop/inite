@@ -41,13 +41,16 @@ class loginViewTest(TestCase):
   def test_home_redirect_login_no_logged(self):
     pass
 
-  @skip("implement")
   def test_view_resources_logged(self):
-    pass
+    self.ip = Seeder.create_fake_registry().ip
+    response = self.client.get('/resources',REMOTE_ADDR=self.ip)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-  @skip("implement")
   def test_view_resources_no_logged(self):
-    pass
+    response = self.client.get('/resources')
+    self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    self.assertTemplateNotUsed(response, 'resources.html')
+    self.assertRedirects(response, '/login')
 
   def test_view_retrieve_no_athenticated(self):
     auth_headers = {
