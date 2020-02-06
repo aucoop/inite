@@ -71,6 +71,8 @@ sudo cp -r ./customDNS /usr/local/
  sudo cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
  ```
 
+4. Editar customDNS/fakeDNS.py perque la variable IP_SERVIDOR que es troba a l'inici del codi tingui el valor correcte (per defecte 19.168.33.1, la ip per defecte del sevidor)
+
 ### Instal·lació del _Captive portal_
 
 1. Instal·lacció dels requisits de python
@@ -98,12 +100,13 @@ systemctl stop systemd-resolved #apagar el dns resolver d'ubuntu
 ```bash
 systemctl start postgresql
 ```
+3. Assegurar-nos que la variable IP_SERVIDOR del fitxer customDNS/fakeDNS.py té el valor del dispositiu que esta exercit de servidor DJango. 
 
-3. Engegar el dns en un terminal
+4. Engegar el dns en un terminal
 ```bash
 python2 customDNS/fakeDNS.py
 ```
-4. Engegar el server DJango
+5. Engegar el server DJango
 ```bash
 python3 manage.py runserver 0.0.0.0:80
 ```
