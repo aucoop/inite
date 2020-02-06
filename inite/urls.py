@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^adm/logout', auth_views.LogoutView.as_view(), name="adm_logout"),
     url(r'^resources$', PortalViews.resources, name='resources'),
     url(r'^login$', PortalViews.login, name='login'),
+    url(r'^toogle$', PortalViews.toogle, name='toogle'),
     url(r'^chpasswd$', PortalViews.retrieve_canvi_contrasenya, name='chpasswd'),
     url(r'^debug$', PortalViews.debug, name='debug'),
     url(r'^statistics$', PortalViews.retrieve_frontend, name='statistics'),

@@ -11,7 +11,7 @@
   </head>
 <body style="background-color: grey;">
 	
-  <div class="login100-more " style="background-image: url('../static/src/background.jpg');">
+  <div class="login100-more " style="background-image: url('../static/src/background.jpg'); overflow-y: auto;">
     <div class="tarja">  
     <div class="center">
       <div class="caixa" >
@@ -33,15 +33,12 @@
     <div class="tarja">  
     <div class="center">
       <div class="caixa" >
-        <form action="/chpasswd" method="post" id="form2">
+        <form action="/adm/password_change" method="post" id="form2">
           <div class="titol">
             <strong>Formulaire pour changer le mot de passe d'administration</strong>
           </div>
           <div style=" padding-bottom: 5px;">
-            Nouveau nom d'utilisateur: <br>  <input  style=" margin-right: 5px;" type="text" name="user" required/> 
-          </div>
-          <div style=" padding-bottom: 5px;">
-            Nouveau mot de passe:  <br> <input  style=" margin-right: 5px;" id="password" type="password" name="passwd" required/> 
+            Nouveau mot de passe:  <br> <input  style=" margin-right: 5px;" id="password" type="password" name="password" required/> 
           </div>
           <div style="padding-bottom: 20px;">
             Répétez le nouveau mot de passe: <br>  <input style=" margin-right: 5px;" id="confirm_password" type="password" name="passwd-repeat" required/> 
@@ -53,8 +50,32 @@
         </form>
       </div>
     </div>
+    <div class="tarja">  
+    <div class="center">
+      <div class="caixa" >
+        <div class="row">
+          <div class="col-md-6">
+            <div >
+                <p>Appuyez sur le bouton pour activer/désactiver Internet</p>
+            </div>
+            <div class="center" style="padding-bottom: 20px">
+              <button class="btn btn-primary end" type="submit"  onclick="window.location.href='/toogle'" >Toogle</button>
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div style="vertical-align: bottom; bottom:0; margin-top: 22px;">
+            <div >
+                <p>Se déconnecter</p>
+            </div>
+            <div class="center" style="padding-bottom: 20px;">
+              <button class="btn btn-danger end" type="submit" onclick="window.location.href='/adm/logout'">Logout</button>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
+	</div>
 	</div>
 <script>
 
@@ -68,7 +89,6 @@ function validatePassword(){
     confirm_password.setCustomValidity('');
   }
 }
-
 password.onchange = validatePassword;
 confirm_password.onkeyup = validatePassword;
 

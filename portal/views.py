@@ -116,3 +116,11 @@ def wikipedia(request):
 
 def view_404(request, exception=None):
   return redirect('login')
+
+
+def toogle(request):
+  print('xapeeeem')
+  return redirect('statistics')
+
+
+
