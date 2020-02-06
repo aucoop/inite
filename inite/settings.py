@@ -134,3 +134,6 @@ BASICAUTH_USERS = {'dks': 'dksStatistics2020'}
 LOGIN_REDIRECT_URL='statistics/'
 LOGOUT_REDIRECT_URL='resources/'
 LOGIN_URL='adm/login'
+
+ROUTER_USER='ubnt'
+ROUTER_PASSWD='ubnt'

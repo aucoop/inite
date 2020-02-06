@@ -120,6 +120,7 @@ def view_404(request, exception=None):
 
 def toogle(request):
   print('xapeeeem')
+  func.toogle_router()
   return redirect('statistics')
 
 
