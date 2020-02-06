@@ -137,3 +137,4 @@ LOGIN_URL='adm/login'
 
 ROUTER_USER='ubnt'
 ROUTER_PASSWD='ubnt'
+ROUTER_IP='192.168.33.1'

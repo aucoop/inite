@@ -1,6 +1,6 @@
 import requests
 import os
-from inite.settings import ROUTER_USER, ROUTER_PASSWD
+from inite.settings import ROUTER_USER, ROUTER_PASSWD, ROUTER_IP
 
 def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -12,8 +12,9 @@ def get_client_ip(request):
 def toogle_router():
   passwd=ROUTER_PASSWD
   usr=ROUTER_USER
+  ip=ROUTER_IP
   payload="/usr/bin/expect << EOF\n"
-  payload+="spawn ssh -oStrictHostKeyChecking=no -oCheckHostIP=no "+usr+"@192.168.33.1 \n"
+  payload+="spawn ssh -oStrictHostKeyChecking=no -oCheckHostIP=no "+usr+"@"+ip+" \n"
   payload+='expect "password"\n'
   payload+='send "'+passwd+'\\n"\n'
   payload+='expect "#"\n'
