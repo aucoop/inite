@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import SetPasswordForm
 from django.urls import path
 from django.conf.urls import url
 from portal import views as PortalViews
@@ -23,6 +24,8 @@ from portal import proxy
 urlpatterns = [
     url(r'^adm/login', auth_views.LoginView.as_view(), name="adm_login"),
     url(r'^adm/logout', auth_views.LogoutView.as_view(), name="adm_logout"),
+    url(r'^adm/change_password$', auth_views.PasswordChangeView.as_view(template_name='statistics.html', form_class= SetPasswordForm, success_url='/adm/change_password-done'), name="adm_change_password"),
+    url(r'^adm/change_password-done$', auth_views.PasswordChangeDoneView.as_view(), name="adm_cahnge_password_done"),
     url(r'^resources$', PortalViews.resources, name='resources'),
     url(r'^login$', PortalViews.login, name='login'),
     url(r'^toogle$', PortalViews.toogle, name='toogle'),
