@@ -9,7 +9,7 @@ Aquesta és la documentació bàsica d'Inite. Inite incorpora un servidor DNS fe
 
 - **Captive Portal:** La funció principal és recollir les dades de les persones que es dirigeixin al centre a fer els cursos. Aquest portal es veurà cada cop que un nou host entri a la xarxa en les X (**aqui cal posar el nombre d'hores**) hores entre que la base de dades es _reseteja_. Permet també a un administrador amb usuari i contrasenya poder-se descarregar aquestes dades i bloquejar o permetre la sortida a internet.
 
-## Instal·lació ràpida
+## Instal·lació
 
 Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i derivats. La instal·lació pot fer-se de forma automàtica per mitjà del _script_ d'instal·lació _install.sh_ present a la carpeta arrel del projecte o de forma manual amb els passos següents ( **Això encara no està implementat. Cal instal·lar manualment** ). Si s'opta per la instal·lació automàtica el manual segueix al punt [posada en marxa](#posada-en-marxa).
 
@@ -110,7 +110,12 @@ python2 customDNS/fakeDNS.py
 ```bash
 python3 manage.py runserver 0.0.0.0:80
 ```
-
+  Si es el primer cop que accedim (és a dir, la base de dades està buida) caldrà entrar creant un usuari administrador per defecte amb la seguent comanda
+  ```bash
+  python3 manage.py createsuperuser
+  python3 manage.py runserver 0.0.0.0:80
+  ```
+  
 Llest. Al obrir un navegador amb el DNS ben configurat i dirigit al nostre servidor ens sortirà un _popup_ del navegador per registrar-nos.
 
 ### Posada en marxa com a server (daemon). Versió de producció
@@ -124,3 +129,27 @@ sudo systemctl start fakeDNS
 sudo systemctl start apache2
 ```
 
+### Observacions
+Cal tenir en compte que l'única forma de creat nous usuaris és a través de la comanda _createsuperuser_ mostrada en el punt anterior. Cal preveure quants usuaris cal donar.  
+
+## Manual d'ús d'Inite
+Per poder seguir aquest punt cal haver completat [Instal·lació](#Instal·lacio) i [Posada en marxa](#posada-en-marxa).
+1. A l'iniciar un navegador, ens sortirà un pop-up demanant-nos que ens registrem per usar la xarxa. 
+(foto popup)
+2. Al accedir-hi, s'ens mostrarà un formulari que haurem d'omplir per usar els recursos de la xarxa. Des d'aquest panell podrem anar també al taulell d'administració (punt 4).
+(foto)
+3. Des d'aquesta se'ns mostren els recursos als que podem accedir sense internet
+(foto)
+4. Si cliquem al botó d'_Admin_ accedirem al panell d'administració des del que ens haurem de _loggejar_.
+(foto)
+5. Des d'aquest panell d'administració tenim accés a diverses funcionalitats
+  1. Descarregar les dades dels usuaris en format csv des de la data assenyalada
+  2. Canviar la contrasenya i el nom d'usuari
+  3. Permetre o bloquejar l'accés a internet dels ordinadors de la sala
+  4. Sortir de l'usuari
+
+## Manual per al desenvolupament.
+### Com adaptar Inite a les meves necessitats
+
+
+### Descripció dels directoris i fitxers d'Inite
