@@ -20,7 +20,7 @@ def toogle_router():
   payload+='expect "#"\n'
   payload+='send "configure\\n"\n'
   payload+='expect "#"\n'
-  payload+='send "if show firewall name INT | grep \'rule 10\' ; then delete firewall name INT rule 10 ; else set firewall name INT rule 10 action drop; set firewall name INT rule 10 protocol tcp_udp ; set firewall name INT rule 10 destination port 80,8080,8000,443 ; fi\\n"\n'
+  payload+='send "if show firewall | grep \'name INT\'; then  delete interfaces ethernet eth0 firewall out; commit; delete firewall name INT ; else  set firewall name INT description \'Toogle internet\'; set firewall name INT default-action accept; set firewall name INT rule 20 action accept; set firewall name INT rule 10 action drop; set firewall name INT rule 10 protocol tcp_udp ; set firewall name INT rule 10 destination port 80,8080,8000,443 ; set interfaces ethernet eth0 firewall out name INT; fi\\n"\n'
   payload+='expect "#"\n'
   payload+='send "commit\\n"\n'
   payload+='expect "#"\n'
