@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+import os, json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -135,6 +135,11 @@ LOGIN_REDIRECT_URL='statistics/'
 LOGOUT_REDIRECT_URL='resources/'
 LOGIN_URL='adm/login'
 
-ROUTER_USER='ubnt'
-ROUTER_PASSWD='ubnt'
-ROUTER_IP='192.168.33.1'
+with open('/etc/inite/variables.json','r') as f:
+  variables = json.load(f)
+
+ROUTER_USER=variables['ROUTER_USER']
+ROUTER_PASSWD=variables['ROUTER_PASSWD']
+ROUTER_IP=variables['ROUTER_IP']
+
+

@@ -7,10 +7,14 @@ from dnsQuery import DNSQuery
 import signal
 import os, sys
 import logging, argparse
+import json
 
-IP_SERVIDOR='192.168.43.48'
-IP_DNS='8.8.8.8'
-DOMAINS = [ 'duniakato.org.',]
+with open('/etc/inite/variables.json','r') as f:
+  variables = json.load(f)
+
+  IP_SERVIDOR=variables['IP_SERVIDOR']
+  IP_DNS=variables['IP_DNS']
+  DOMAINS =variables['DOMAINS']
 
 #db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre')
 #p = None
