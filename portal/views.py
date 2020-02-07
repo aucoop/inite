@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import F
+from django.contrib.auth.decorators import login_required
 from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
@@ -9,7 +9,8 @@ from portal.models import Usuari, Registre
 from inite.decorators import need_login
 import os
 import signal
-import datetime
+#import datetime
+from django.utils import timezone 
 
 # Create your views here.
 
@@ -63,7 +64,7 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
-@basic_auth_required
+@login_required()
 def retrieve_canvi_contrasenya(request):
   if request.method == 'POST':
     user = request.POST.get('user')
@@ -71,22 +72,22 @@ def retrieve_canvi_contrasenya(request):
     nou = {user:passwd}
     settings.BASICAUTH_USERS = nou
 
-@basic_auth_required
+@login_required()
 def retrieve_frontend(request):
   if request.method == 'GET':
     return render(request,'statistics.html')
 
 
-@basic_auth_required
+@login_required()
 def retrieve(request):
     if request.method == "GET":
-      dia = datetime.datetime.now().day
-      mes = datetime.datetime.now().month
+      dia = timezone.now().day
+      mes = timezone.now().month
       aany = 2019
       date = list([aany,mes,dia])
       if 'date' in request.GET:
         date = request.GET['date'].split('-')
-      data = datetime.datetime(int(date[0]), int(date[1]), int(date[2]))
+      data = timezone.datetime(int(date[0]), int(date[1]), int(date[2]))
       file_path='/tmp/usuaris.csv'
       Usuari.objects.filter(registrat__gt = data).extra(
         select={
@@ -115,3 +116,11 @@ def wikipedia(request):
 
 def view_404(request, exception=None):
   return redirect('login')
+
+
+def toogle(request):
+  func.toogle_router()
+  return redirect('statistics')
+
+
+

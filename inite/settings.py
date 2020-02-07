@@ -55,8 +55,7 @@ ROOT_URLCONF = 'inite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -131,3 +130,11 @@ STATICFILES_DIRS = [
 ]
 
 BASICAUTH_USERS = {'dks': 'dksStatistics2020'}
+
+LOGIN_REDIRECT_URL='statistics/'
+LOGOUT_REDIRECT_URL='resources/'
+LOGIN_URL='adm/login'
+
+ROUTER_USER='ubnt'
+ROUTER_PASSWD='ubnt'
+ROUTER_IP='192.168.33.1'
