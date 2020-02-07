@@ -1,5 +1,5 @@
 import psycopg2 as pg2
-
+import sys
 class Registre_IPs:
 
   def __init__(self,db_user,db_password,db_host,db_port,db_name,tableName):
@@ -16,8 +16,8 @@ class Registre_IPs:
     try:
       connection = pg2.connect(user= self.db_user, password = self.db_password, host = self.db_host , port = self.db_port, database = self.db_name)
       return connection
-    except (Exception, pg2.Error) as error:
-      return None
+    except Exception as error:
+      raise Exception(error)  
 
   def getIPs(self):
     return self.IPs
@@ -37,8 +37,8 @@ class Registre_IPs:
         for row in ip_records:
           self.IPs.append(row[0])
 
-    except (Exception, pg2.Error) as error:
-      print("Error al fer SELECT", error)
+    except Exception as error:
+      raise Exception(error)
 
   # !!!! Si actualitza
   def borra(self):
@@ -50,8 +50,8 @@ class Registre_IPs:
         #cursor.execute("DELETE FROM {}".format(pg2.sql.Identifier(self.db_name)))
         cursor.execute("DELETE FROM {}".format(self.tableName))
 	self.actualitza()
-    except (Exception, pg2.Error) as error:
-      print("error al fer DELETE", error)
+    except Exception as error:
+      raise Exception( error)
         
     
     
