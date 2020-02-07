@@ -1,0 +1,2 @@
+# Afegir aquesta variable a /etc/apache2/envvars amb el path d'inite.git
+export PROJ_PATH=
