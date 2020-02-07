@@ -5,11 +5,16 @@ import time
 from functions import Registre_IPs
 from dnsQuery import DNSQuery
 import signal
-import os
+import os, sys
+import logging, argparse
+import json
 
-IP_SERVIDOR='192.168.43.48'
-IP_DNS='8.8.8.8'
-DOMAINS = [ 'duniakato.org.',]
+with open('/etc/inite/variables.json','r') as f:
+  variables = json.load(f)
+
+  IP_SERVIDOR=variables['IP_SERVIDOR']
+  IP_DNS=variables['IP_DNS']
+  DOMAINS =variables['DOMAINS']
 
 #db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre')
 #p = None
@@ -20,15 +25,31 @@ def capture(req, domains, addr, loggedAddrs):
 
 def handler(nombre, frame):
   db.actualitza()
-  print("[*]\tIp list updated:\n"+", ".join(db.getIPs()))  
+  logging.debug("[*]\tIp list updated:\n"+", ".join(db.getIPs()))  
   
 
 if __name__ == '__main__':
+
+
+  parser = argparse.ArgumentParser(description='Process some integers.')
+  parser.add_argument('--debug', default=False, action='store_true'  )
+  
+
+  args = parser.parse_args()
+  loglevel = 'debug' if  vars(args)['debug']  else 'warning'
+
+  numeric_level = getattr(logging, loglevel.upper(), None)
+  if not isinstance(numeric_level, int):
+    raise ValueError('Invalid log level: %s' % loglevel)
+  logging.basicConfig(level=numeric_level, format='%(message)s')
+  
   global p
   global db
-  
-  db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre') 
-
+  try: 
+    db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre') 
+  except Exception as e:
+    logging.error('Error connecting with db: '+str(e))
+    sys.exit()
   with open("/tmp/fakeDNS.pid","w") as pid_file:
     pid_file.write(str(os.getpid()))
   
@@ -36,11 +57,12 @@ if __name__ == '__main__':
   #udps.settimeout(5)
   try:
     udps.bind(('',53))
-    print('[*]\tDns listening on port 53')
+    logging.debug('[*]\tDns listening on port 53')
   except Exception as e:
-    print('Error while port binding: ',e)
+    logging.error('Error while port binding: ',e)
+    sys.exit()
   signal.signal(signal.SIGUSR1, handler)
-  print('[*]\tCapturing SIGUSR1...\n')
+  logging.debug('[*]\tCapturing SIGUSR1...\n')
 
 
   try:
@@ -48,7 +70,7 @@ if __name__ == '__main__':
       try:
               data, addr = udps.recvfrom(1024)
               p=DNSQuery(data, IP_DNS ,IP_SERVIDOR)
-              print('[***] Dns request from {}:\t{}'.format(addr[0],p.dominio))
+              logging.debug('[***] Dns request from {}:\t{}'.format(addr[0],p.dominio))
               tocapture = capture(p.dominio, DOMAINS, addr, db.getIPs())
               response = p.respuesta(tocapture)
               chars = response[-4:]
@@ -56,10 +78,10 @@ if __name__ == '__main__':
               resolved += str(ord(chars[1])) + '.'
               resolved += str(ord(chars[2])) + '.'
               resolved += str(ord(chars[3]))
-              print('\t[*] Dns respone: {}\n'.format(resolved))
+              logging.debug('\t[*] Dns respone: {}\n'.format(resolved))
               udps.sendto(response, addr)
       except Exception as e:
-                            print("Hi ha hagut un error %s" % e)
+                            logging.debug("Hi ha hagut un error %s" % e)
                             pass
       #print("surto del socket 1")
 # #print 'Respuesta: %s -> %s' % (p.dominio, ip)
