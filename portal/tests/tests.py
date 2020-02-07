@@ -20,13 +20,6 @@ class loginViewTest(TestCase):
     self.assertEqual(response.status_code, status.HTTP_200_OK)
     self.assertTemplateUsed(response, 'login.html')
 
-  def test_view_login_302_redirect_if_logged(self):
-    self.ip = Seeder.create_fake_registry().ip
-    response = self.client.get('/login',REMOTE_ADDR=self.ip)
-    self.assertEqual(response.status_code, status.HTTP_302_FOUND)
-    self.assertTemplateNotUsed(response, 'login.html')
-    self.assertRedirects(response, '/resources')
-
   @skip("implement")
   def test_view_login_POST_not_logged(self):
     obj = Seeder.generate_fake_user()
@@ -60,14 +53,37 @@ class loginViewTest(TestCase):
     self.assertRedirects(response, '/login')
 
 
+  @skip("implement")
+  def test_canvi_de_password_retrieve(self):
+    vell = settings.BASICAUTH_USERS
+    nou = {'test':'test'}
+    data =  {'user':'test', 'passwd':'test'}
+    username =list(vell.keys())[0]
+    password = vell[username]
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
+    }
+    response = self.client.post('/chpasswd',data, **auth_headers)
+    self.assertEqual(response.status_code, status.HTTP_200_OK)
+    self.assertEqual(settings.BASICAUTH_USERS,nou)
+    data = {'user':username, 'passwd': password}
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
+    }
+    response = self.client.post('/chpasswd',data)
+    self.assertEqual(settings.BASICAUTH_USERS,vell)
+    
+
   def test_view_retrieve_no_athenticated(self):
-    response = self.client.get('/retrieve')
+    auth_headers = {
+    'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode('frewfrewfre:frewfrew'.encode('utf-8'))), 
+    }
+    c = self.client
+    response = c.get('/retrieve', **auth_headers)
     self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-  @skip("implement")
   def test_view_retrieve_authenticated(self):
-    pass
-    username =
+    username =list( settings.BASICAUTH_USERS.keys())[0]
     password = settings.BASICAUTH_USERS[username]
     auth_headers = {
     'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
@@ -76,7 +92,7 @@ class loginViewTest(TestCase):
     response = c.get('/retrieve', **auth_headers)
     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-  def test_view_statistics_200_OK(self):
+  def test_view_retrieve_frontend(self):
     response = self.client.get('/statistics')
     auth_headers = {
     'HTTP_AUTHORIZATION': 'Basic ' + str(base64.b64encode(('%s:%s' % (username,password)).encode('utf-8')), "utf-8"), 
@@ -96,3 +112,9 @@ class loginViewTest(TestCase):
   def test_proxy_khanacademy(self):
     pass
 
+  def test_view_login_redirect_if_logged(self):
+    self.ip = Seeder.create_fake_registry().ip
+    response = self.client.get('/login',REMOTE_ADDR=self.ip)
+    self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+    self.assertTemplateNotUsed(response, 'login.html')
+    self.assertRedirects(response, '/resources')
