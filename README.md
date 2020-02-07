@@ -19,7 +19,7 @@ Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i de
 
 ```bash
 sudo apt update
-sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi expect 
+sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect 
 ```
 2. Configuració de l'apache. 
 
@@ -150,6 +150,24 @@ Per poder seguir aquest punt cal haver completat [Instal·lació](#Instal·lacio
 
 ## Manual per al desenvolupament.
 ### Com adaptar Inite a les meves necessitats
+3. Permetre o bloquejar l'accés a internet dels ordinadors de la sala
+4. Sortir de l'usuari
+## Manual per al desenvolupament.
+### Com adaptar Inite a les meves necessitats
+- **Fitxer de configuració:** _inite/settings.py_. En aquest fitxer hi podem trobar variables per les redireccions. És neccessari comprovar que els paràmetres referents al ruter són correctes sempre.
+  - LOGIN_REDIRECT_URL: On anirem a parar un cop haguem passat el portal
+  - LOGOUT_REDIRECT_URL: On anirem a parar un com haguem fet logout des de l'admin.
+  - ROUTER_USER: Usuari del router.
+  - ROUTER_PASSWD: Contrasenya del router
+  - ROUTER_IP: IP del router
 
+- **Fitxer d'URLs:** _inite/urls.py_. En aquest fitxer trobarem els endpoints. Cada un està relacionat amb una vista (portal/views.py) que és la funció que l'executa. No recomanem que es canviïn els endpoints
+
+- **Canviar URL base dels endpoints:** Permet accedir als recursos a través de {url_base}/recurs. Per canviar-lo cal canviar la variable DOMAINS del fitxer customDNS/fakeDNS.py
+
+(això queda en standby a l'espera de que es faci un JSON de variables)
+
+- 
 
 ### Descripció dels directoris i fitxers d'Inite
+
