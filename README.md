@@ -1,58 +1,108 @@
 # INITE: Captive portal basat en DNS spoofing.
-Aquesta és la documentació bàsica d'Inite. Inite incorpora un servidor DNS fet en python i un [Captive Portal](https://en.wikipedia.org/wiki/Captive_portal) fen en el _REST framework_ de python Django:
+Aquesta és la documentació bàsica d'Inite. Inite incorpora un servidor DNS fet en python i un [Captive Portal](https://en.wikipedia.org/wiki/Captive_portal) fet en el _REST framework_ de python Django:
 
 - **CustomDNS:** Aquest senzill dns (a la carpeta customDNS) permet l'aparició automàtica del _captive portal_ i l'enllaç amb els altres serveis del servidor. El seu funcionament és el següent:
-  1. Un _host_ de la xarxa interna desitja connectar-se a internet. Si el router ha estat ben configurat com explica la documentació bàsica del projecte (**aqui hi ha d'anar un link a una documentació que encara no està feta**) aquest _host_ farà una petició DNS al servei per resoldre el nom del recurs que demana.
+  1. Un _host_ de la xarxa interna desitja connectar-se a internet. Si el router ha estat ben configurat com explica la [documentació](#configuracio-del-router) aquest _host_ farà una petició DNS al servei per resoldre el nom del recurs que demana.
   2. Al rebre aquesta petició el servidor customDNS té dos comportaments:
     - Aquest host no ha passat pel _captive portal_: En aquest cas mostrarà el portal perquè el host es pugui registar.
     - Aquest host s'ha registrat correctament al _captive portal_: En aquest cas podrà accedir als recurosos d'internet i/o del servidor lliurement. La base de dades del DNS serà borrada cada ( **encara no ho sabem** ) hores per forçar el registre de la gent tenint en compte que els cursos pels que s'ha dissenyat aquest servei duren 4 hores i els ordinadors són compartits.
 
-- **Captive Portal:** La funció principal és recollir les dades de les persones que es dirigeixin al centre a fer els cursos. Aquest portal es veurà cada cop que un nou host entri a la xarxa en les X (**aqui cal posar el nombre d'hores**) hores entre que la base de dades es _reseteja_. Permet també a un administrador amb usuari i contrasenya poder-se descarregar aquestes dades i bloquejar o permetre la sortida a internet.
+- **Captive Portal:** La funció principal és recollir les dades de les persones que es dirigeixin al centre a fer els cursos. Aquest portal es veurà cada cop que un nou _host_ entri a la xarxa en les X (**aqui cal posar el nombre d'hores**) hores entre que la base de dades es _reseteja_. Permet també a un administrador amb usuari i contrasenya poder-se descarregar aquestes dades i bloquejar o permetre la sortida a internet.
+
+## Configuració de la instal·lació
+
+Abans de tot cal donar el valor correcte a les variables d'instal·lació:
+ROUTER_PASSWD: Password del router
+ROUTER_USER: User del router
+ROUTER_IP: IP del router
+IP_SERVIDOR: IP del servidor web (192.168.33.2) en la nostra configuració
+IP_DNS: IP del servidor DNS pel _forwarding_
+DOMAINS: Domini base. (ex: _duniakato.org_)
+DB_NAME: Nom de la base de dades, a escollir.
+DB_USER: Usuari de la base de dades, a escollir.
+DB_PASSWD: Contrasenya de la base de dades, a escollir.
+(**Aquí en falten encara**)
+
+## Configuració del Router
+
+(falta aqui la docu de la configuració del router, el de diadem ja està configurat)
 
 ## Instal·lació
 
-Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i derivats. La instal·lació pot fer-se de forma automàtica per mitjà del _script_ d'instal·lació _install.sh_ present a la carpeta arrel del projecte o de forma manual amb els passos següents ( **Això encara no està implementat. Cal instal·lar manualment** ). Si s'opta per la instal·lació automàtica el manual segueix al punt [posada en marxa](#posada-en-marxa).
+Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i derivats. La instal·lació pot fer-se de forma automàtica per mitjà del _script_ d'instal·lació _installinite.sh_ o de forma manual amb els passos següents ( **Això encara no està implementat. Cal instal·lar manualment** ). Si s'opta per la instal·lació automàtica el manual segueix al punt [posada en marxa](#posada-en-marxa).
+
+Abans de començar la instal·lació cal moure el fitxer de configuracions al lloc que el pertoca
+
+```bash
+mkdir /etc/inite
+cp variables.json /etc/inite/
+```
 
 ### Instal·lació del programari necessari
 
 1. Cal primer instalar python i l'instal·lador de paquets _pip_, el servidor web Apache2, el SGBD postgresql
 
 ```bash
-sudo apt update
-sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect 
+sudo apt update -y
+sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect -y 
 ```
-2. Configuració de l'apache. 
 
-```bash
-sudo systemctl enable apache2
-sudo systemctl restart apache2
-cp web_server/inite.conf /etc/apache2/sites-available/ 
-ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf 
-cp web_server/mod-wsgi.conf /etc/apache2/conf-available/
-a2enconf mod-wsgi
-a2enmod wsgi
-sudo systemctl reload apache2
-``` 
-3. Configuració de Postgres. És important escriure aquestes comandes per separat per evitar problemes amb el _shell_ de postgres. Al llarg d'aquesta configuració s'ens demanarà la constrasenya de l'usuari de la base de dades. La contrasenya usada en el nostre programa és _NTExMmZhMmU3_. Recomanem usar aquesta. Si es desitja usar una de diferent cal canviar els fitxers customDNS/fakeDNS.py i inite/settings.py perquè usin la mateixa contrasenya.
-
+2. Configuració de Postgres. És important escriure aquestes comandes per separat per evitar problemes amb el _shell_ de postgres. **CAL DONAR AL NOM DE L'USUARI, AL NOM DE LA BASE DE DADES I A LA CONTRASENYA EL MATEIX VALOR QUE S'HA INDICAT EN EL FITXER DE CONFIGURACIÓ _variables.json_** 
 
 ```bash
 sudo systemctl enable postgresql
 sudo systemctl start postgresql
 su postgres
 psql
-createuser u_dks;
-createdb db_dks;
-\password u_dks;  # s'ens demanarà contrasenya
+create user <valor del fitxer variables.json>;
+create database <valor del fitxer variables.json>;
+\password <valor del fitxer variables.json>;  
 alter user u_dks createdb;
 \q
 exit
+```
+
+
+3. Configuració de l'entorn python
+  1. Crear entorn virtual
+  ```bash
+  pip3 install venv
+  python3 -m venv venv
+  source venv/bin/activate
+  ```
+  2. Instal·lacció dels requisits de python
+```bash
+pip3 install wheel
+pip3 install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
+deactivate
 ```
 4. Deshabilitar el dns server per defecte d'unix
 ```bash
 systemctl disable systemd-resolved
 ```
-
+5. Configuració de l'apache. 
+  1. Configuració de les variables d'entorn
+    Cal donar valor a la variable PROJ_PATH present a _web_server/envvars_. Exemple:
+    ```bash
+    #Això és el fitxer envvars
+    export PROJ_PATH=/home/quim/inite
+    ```
+    Afegir la variable a l'entorn d'Apache:
+    ```bash
+    su -c "cat web_server/envvars  >> /etc/apache2/envvars"
+    ```
+  2. Configuració dels mòduls i entorn
+  ```bash
+  sudo cp web_server/inite.conf /etc/apache2/sites-available/ 
+  sudo ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf 
+  sudo cp web_server/mod-wsgi.conf /etc/apache2/conf-available/
+  sudo a2enconf mod-wsgi
+  sudo a2enmod wsgi
+  sudo systemctl enable apache2
+  sudo systemctl restart apache2
+  ``` 
 ### Instal.lació del dns customDNS
 1. Procedim a la instal·lació de customDNS
 
@@ -70,16 +120,6 @@ sudo cp -r ./customDNS /usr/local/
 ```bash
  sudo cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
  ```
-
-4. Editar customDNS/fakeDNS.py perque la variable IP_SERVIDOR que es troba a l'inici del codi tingui el valor correcte (per defecte 19.168.33.1, la ip per defecte del sevidor)
-
-### Instal·lació del _Captive portal_
-
-1. Instal·lacció dels requisits de python
-```bash
-pip3 install -r requirements.txt
-```
-2. Donar valor a les variables ROUTER_USER, ROUTER_PASSWD i ROUTER_IP presents a inite/settings.py amb les credencials d'administració del router Edgerouter X. (no podem assegurar el seu funcionament amb altres routers). Veure documentació general (**Aqui falta un link a la documentació que encara no està feta**)
 
 ## Posada en marxa
 
@@ -108,12 +148,18 @@ python2 customDNS/fakeDNS.py
 ```
 5. Engegar el server DJango
 ```bash
+source venv/bin/activate
+sudo su
 python3 manage.py runserver 0.0.0.0:80
+deactivate
 ```
   Si es el primer cop que accedim (és a dir, la base de dades està buida) caldrà entrar creant un usuari administrador per defecte amb la seguent comanda
   ```bash
+  source venv/bin/activate
   python3 manage.py createsuperuser
+  sudo su
   python3 manage.py runserver 0.0.0.0:80
+  deactivate
   ```
   
 Llest. Al obrir un navegador amb el DNS ben configurat i dirigit al nostre servidor ens sortirà un _popup_ del navegador per registrar-nos.
@@ -129,7 +175,7 @@ sudo systemctl start fakeDNS
 sudo systemctl start apache2
 ```
 
-### Observacions
+### IMPORTANT!! Observacions
 Cal tenir en compte que l'única forma de creat nous usuaris és a través de la comanda _createsuperuser_ mostrada en el punt anterior. Cal preveure quants usuaris cal donar.  
 
 ## Manual d'ús d'Inite
@@ -150,24 +196,10 @@ Per poder seguir aquest punt cal haver completat [Instal·lació](#Instal·lacio
 
 ## Manual per al desenvolupament.
 ### Com adaptar Inite a les meves necessitats
-3. Permetre o bloquejar l'accés a internet dels ordinadors de la sala
-4. Sortir de l'usuari
+A la carpeta templates hi ha els templates html amb els textos que es poden canviar per adaptar-los a les necessitats d'allà on implementem el projecte
+(en un futur aquesta docu estarà millor). 
 ## Manual per al desenvolupament.
-### Com adaptar Inite a les meves necessitats
-- **Fitxer de configuració:** _inite/settings.py_. En aquest fitxer hi podem trobar variables per les redireccions. És neccessari comprovar que els paràmetres referents al ruter són correctes sempre.
-  - LOGIN_REDIRECT_URL: On anirem a parar un cop haguem passat el portal
-  - LOGOUT_REDIRECT_URL: On anirem a parar un com haguem fet logout des de l'admin.
-  - ROUTER_USER: Usuari del router.
-  - ROUTER_PASSWD: Contrasenya del router
-  - ROUTER_IP: IP del router
-
-- **Fitxer d'URLs:** _inite/urls.py_. En aquest fitxer trobarem els endpoints. Cada un està relacionat amb una vista (portal/views.py) que és la funció que l'executa. No recomanem que es canviïn els endpoints
-
-- **Canviar URL base dels endpoints:** Permet accedir als recursos a través de {url_base}/recurs. Per canviar-lo cal canviar la variable DOMAINS del fitxer customDNS/fakeDNS.py
-
-(això queda en standby a l'espera de que es faci un JSON de variables)
-
-- 
+### Com adaptar Inite a les meves necessitats (desactualitzat)
 
 ### Descripció dels directoris i fitxers d'Inite
 
