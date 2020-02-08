@@ -8,8 +8,8 @@ from portal.models import Usuari, Registre
 from inite.decorators import need_login
 import os
 import signal
-#import datetime
 from django.utils import timezone 
+from inite import settings
 
 # Create your views here.
 
@@ -38,8 +38,8 @@ def login(request):
         r.save()
         try:
           # Send signal to fakeDNS.pid to make him update ip_table
-          with open("/tmp/fakeDNS.pid","r") as pid_file:
-            os.kill(int(pid_file.read()), signal.SIGUSR1)
+          with open(settings.BASE_DIR+"/inite/fakeDNS.pid","r") as pid_file:
+            os.system("sudo " + settings.BASE_DIR + '/updateIP')
         except Exception as e:
           print("Error enviant signal a fakeDNS: ", e)
           pass

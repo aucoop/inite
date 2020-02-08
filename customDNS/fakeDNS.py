@@ -51,7 +51,7 @@ if __name__ == '__main__':
   except Exception as e:
     logging.error('Error connecting with db: '+str(e))
     sys.exit()
-  with open("/tmp/fakeDNS.pid","w") as pid_file:
+  with open("/run/fakeDNS.pid","w") as pid_file:
     pid_file.write(str(os.getpid()))
   
   udps = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -74,12 +74,13 @@ if __name__ == '__main__':
               logging.debug('[***] Dns request from {}:\t{}'.format(addr[0],p.dominio))
               tocapture = capture(p.dominio, DOMAINS, addr, db.getIPs())
               response = p.respuesta(tocapture)
-              chars = response[-4:]
-              resolved = str(ord(chars[0])) + '.'
-              resolved += str(ord(chars[1])) + '.'
-              resolved += str(ord(chars[2])) + '.'
-              resolved += str(ord(chars[3]))
-              logging.debug('\t[*] Dns respone: {}\n'.format(resolved))
+              if  vars(args)['debug']:
+                chars = response[-4:]
+                resolved = str(ord(chars[0])) + '.'
+                resolved += str(ord(chars[1])) + '.'
+                resolved += str(ord(chars[2])) + '.'
+                resolved += str(ord(chars[3]))
+                logging.debug('\t[*] Dns respone: {}\n'.format(resolved))
               udps.sendto(response, addr)
       except Exception as e:
                             logging.debug("Hi ha hagut un error %s" % e)
