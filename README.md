@@ -24,6 +24,10 @@ DB_PASSWD: Contrasenya de la base de dades, a escollir.
 (**Aquí en falten encara**)
 
 Cal també donar permisos d'exexcució a l'script d'instal·lació
+```bash
+chmod +x installinite.sh
+```
+
 
 ## Configuració del Router
 
