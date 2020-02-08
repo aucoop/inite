@@ -4,5 +4,9 @@
 "ROUTER_IP":"192.168.33.1",
 "IP_SERVIDOR":"192.168.33.2",
 "IP_DNS":"8.8.8.8",
-"DOMAINS":["duniakato.sn."]
+"DOMAINS":["duniakato.sn."],
+"DB_NAME":"db_dks",
+"DB_USER":"u_dks",
+"DB_PASSWORD":"NTExMmZhMmU3"
+
 }

@@ -12,9 +12,9 @@ import json
 with open('/etc/inite/variables.json','r') as f:
   variables = json.load(f)
 
-  IP_SERVIDOR=variables['IP_SERVIDOR']
-  IP_DNS=variables['IP_DNS']
-  DOMAINS =variables['DOMAINS']
+IP_SERVIDOR=variables['IP_SERVIDOR']
+IP_DNS=variables['IP_DNS']
+DOMAINS =variables['DOMAINS']
 
 #db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre')
 #p = None
@@ -46,7 +46,8 @@ if __name__ == '__main__':
   global p
   global db
   try: 
-    db = Registre_IPs('u_dks', 'NTExMmZhMmU3', 'localhost', '5432', 'db_dks', 'portal_registre') 
+    logging.debug('[*]\tConnecting with DB...')
+    db = Registre_IPs(variables['DB_USER'], variables['DB_PASSWORD'], 'localhost', '5432', variables['DB_NAME'], 'portal_registre') 
   except Exception as e:
     logging.error('Error connecting with db: '+str(e))
     sys.exit()
