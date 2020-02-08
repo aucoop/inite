@@ -50,7 +50,7 @@ if __name__ == '__main__':
   except Exception as e:
     logging.error('Error connecting with db: '+str(e))
     sys.exit()
-  with open("/tmp/fakeDNS.pid","w") as pid_file:
+  with open("/run/fakeDNS.pid","w") as pid_file:
     pid_file.write(str(os.getpid()))
   
   udps = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
