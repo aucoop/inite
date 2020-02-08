@@ -39,7 +39,7 @@ def login(request):
         try:
           # Send signal to fakeDNS.pid to make him update ip_table
           with open(settings.BASE_DIR+"/inite/fakeDNS.pid","r") as pid_file:
-            os.kill(int(pid_file.read()), signal.SIGUSR1)
+            os.system("sudo " + settings.BASE_DIR + '/updateIP')
         except Exception as e:
           print("Error enviant signal a fakeDNS: ", e)
           pass
