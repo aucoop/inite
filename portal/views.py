@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from basicauth.decorators import basic_auth_required
 from django.http import HttpResponse, HttpResponseNotFound
 import requests
 from django.conf import settings
