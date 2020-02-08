@@ -57,8 +57,8 @@ sudo systemctl enable postgresql
 sudo systemctl start postgresql
 su postgres
 psql
-createuser u_dks;
-createdb db_dks;
+create user u_dks;
+create database db_dks;
 \password u_dks;  # s'ens demanarà contrasenya
 alter user u_dks createdb;
 \q
