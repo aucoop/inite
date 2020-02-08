@@ -23,6 +23,8 @@ DB_USER: Usuari de la base de dades, a escollir.
 DB_PASSWD: Contrasenya de la base de dades, a escollir.
 (**Aquí en falten encara**)
 
+Cal també donar permisos d'exexcució a l'script d'instal·lació
+
 ## Configuració del Router
 
 (falta aqui la docu de la configuració del router, el de diadem ja està configurat)
@@ -102,6 +104,9 @@ systemctl disable systemd-resolved
   sudo a2enmod wsgi
   sudo systemctl enable apache2
   sudo systemctl restart apache2
+  chmod +x enable updateIP
+  sudo chown root:root updateIP
+  echo "www-data ALL= (root) NOPASSWD: `pwd`/updateIP" | sudo EDITOR='tee -a' visudo
   ``` 
 ### Instal.lació del dns customDNS
 1. Procedim a la instal·lació de customDNS

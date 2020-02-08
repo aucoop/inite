@@ -56,7 +56,9 @@ a2enconf mod-wsgi
 a2enmod wsgi
 systemctl enable apache2
 systemctl restart apache2
-
+chmod +x updateIP
+sudo chown root:root updateIP
+echo "www-data ALL= (root) NOPASSWD: `pwd`/updateIP" | sudo EDITOR='tee -a' visudo
 systemctl disable systemd-resolved
 
 ## Instal·lar customDNS
