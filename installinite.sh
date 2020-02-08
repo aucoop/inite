@@ -10,6 +10,9 @@ echo "ERROR: You must be in Inite repository's root folder?"
 exit 1
 fi
 
+## configuració de variables
+mkdir /etc/inite
+cp variables.json /etc/inite/
 
 ### CONFIGURACIÓ DEL ROUTER ###
 # Falta aquí la configuració del router
@@ -20,18 +23,27 @@ fi
 apt update
 sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect -y
 
+## Configuració de postgres
+nom_bd=`cat inite/variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+nom_user=`cat inite/variables.json | grep DB_USER | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+passwd_bd=`cat inite/variables.json | grep DB_PASSWORD | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+sudo su postgres -c "
+psql -c \"create user $nom_user with password '${passwd_bd}';\"
+psql -c \"create database $nom_bd;\"
+psql -c \"alter user $nom_user createdb;\""
+exit
+
+
 ## Entorn de python
 pip3 install venv
 python3 -m venv venv
 source venv/bin/activate
 pip3 install wheel
 pip3 install -r requirements.txt
+python3 manage.py makemigrations
+python3 manage.py migrate
 deactivate
 
-##Configuracióp de postgres
-systemctl enable postgresql
-systemctl start postgresql
-##ENS HEM QUEDAT AQUI
 
 ## Apache variables d'entorn
 echo "export PROJ_PATH=`pwd`" >> /etc/apache2/envvars
@@ -45,7 +57,18 @@ a2enmod wsgi
 systemctl enable apache2
 systemctl restart apache2
 
+systemctl disable systemd-resolved
+
+## Instal·lar customDNS
+
+pip install -r customDNS/requirements.txt
+cp -r ./customDNS /usr/local/
+cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
 
 
-
-
+systemctl disable systemd-resolved
+systemctl stop systemd-resolved
+systemctl enable fakeDNS
+systemctl start fakeDNS
+systemctl restart apache2
+echo "Installation scritp is finish. Check services are running correctly with systemctl status fakeDNS and systemctl status apache2"
