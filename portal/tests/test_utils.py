@@ -20,7 +20,7 @@ class Seeder:
     return { 'fname': generate_random_string(), 
              'lname': generate_random_string(), 
              'lloc_r': generate_random_string(), 
-             'lloc_n': generate_random_string(), 
+             'sexe': generate_random_string(), 
              'email': generate_random_string(), 
              'edat': generate_random_number(),
              'policy': 'on' }
