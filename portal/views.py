@@ -27,7 +27,7 @@ def login(request):
       nom = request.POST.get('fname', '')
       cognom = request.POST.get('lname', '')
       lloc_r = request.POST.get('lloc_r', '')
-      lloc_n = request.POST.get('lloc_n', '')
+      sexe = request.POST.get('sexe', '')
       email = request.POST.get('email', '')
       edat = request.POST.get('edat', '')
 
@@ -46,7 +46,7 @@ def login(request):
       except Exception as e:
         print("Error registrant ip: " + e)
 
-      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, nascut_a=lloc_n, email=email)
+      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, sexe=sexe, email=email)
       u.save()
       return redirect('/resources/')
     
@@ -94,13 +94,13 @@ def retrieve(request):
           'Nom': 'cognom',
           'Email': 'email',
           'Âge': 'edat',
-          'Lieu de naissance': 'nascut_a',
+          'Sexe': 'sexe',
           'Lieu de résidence': 'resideix_a',
           'Date de connexion': 'registrat'
 
         }
       ).values(
-        'Prénom', 'Nom', 'Email', 'Âge', 'Lieu de naissance', 'Lieu de résidence', 'Date de connexion'
+        'Prénom', 'Nom', 'Email', 'Âge', 'Sexe', 'Lieu de résidence', 'Date de connexion'
       ).to_csv(file_path)
       with open(file_path, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/csv")

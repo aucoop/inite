@@ -64,10 +64,13 @@ sadfsdfasdf  df f f
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input" data-validate="Username is required">
-						<span class="label-input100">Lieu de naissance</span>
-						<input class="input100" type="text" name="lloc_n" placeholder="Lieu de naissance..." required>
-						<span class="focus-input100"></span>
+					<div class="wrap-input100 validate-input" style="border-bottom: 0px;" data-validate="Username is required">
+						<span class="label-input100">Sexe</span>
+            <select style="margin-top:10px; font-family: Poppins-Regular; font-size: 20px; color: #555555;  height: 50px; display:block;"  id="sexe" name="sexe" required>
+              <option value="femelle" style="font-family: Poppins-Regular; font-size: 20px; color: #555555 !important; ">Femelle</option>
+              <option value="male" style="font-family: Poppins-Regular; font-size: 20px; color: #555555 !important; ">Mâle</option>
+              <option value="autre" style="font-family: Poppins-Regular; font-size: 20px; color: #555555 !important; ">Autre</option>
+            </select>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
@@ -95,15 +98,13 @@ sadfsdfasdf  df f f
 
 					<div class="flex-m w-full p-b-33">
 						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="policy" required>
-							<label class="label-checkbox100" for="ckb1">
+							<input class="" id="ckb1" type="checkbox" name="policy" required>
 								<span class="txt1">
-									je suis d'accord avec le
-									<a href="#" class="txt2 hov1">
+									Je suis d'accord avec le
+									<a href="/policy" class="txt2 hov1">
 										Conditions d'utilisation
 									</a>
 								</span>
-							</label>
 						</div>
 
 						

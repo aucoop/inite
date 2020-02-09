@@ -27,7 +27,7 @@ class loginViewTest(TestCase):
     self.assertEqual(response.status_code, status.HTTP_302_FOUND)
     self.assertTemplateNotUsed(response, 'login.html')
     self.assertRedirects(response, '/resources')
-    u = models.Usuari.objects.get(nom=obj['fname'], cognom=obj['lname'], edat=obj['edat'], resideix_a=obj['lloc_r'], nascut_a=obj['lloc_n'], email=obj['email'])
+    u = models.Usuari.objects.get(nom=obj['fname'], cognom=obj['lname'], edat=obj['edat'], resideix_a=obj['lloc_r'], sexe=obj['sexe'], email=obj['email'])
   
   @skip("implement")
   def test_view_login_POST_logged(self):
