@@ -14,10 +14,6 @@ fi
 mkdir /etc/inite
 cp variables.json /etc/inite/
 
-### CONFIGURACIÓ DEL ROUTER ###
-# Falta aquí la configuració del router
-
-
 ### INSTALLACIO
 ## installacio del programari necssari
 apt update
