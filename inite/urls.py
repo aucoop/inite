@@ -33,9 +33,9 @@ urlpatterns = [
     url(r'^debug$', PortalViews.debug, name='debug'),
     url(r'^statistics$', PortalViews.retrieve_frontend, name='statistics'),
     url(r'^retrieve$', PortalViews.retrieve, name='retrieve'),
-    url(r'^wikipedia$',  proxy.WikiProxy.as_view(), name='proxy'), 
-    url(r'^moodle$',  proxy.MoodleProxy.as_view(), name='proxy'), 
-    url(r'^khanacademy$',  proxy.KhanProxy.as_view(), name='proxy'), 
+    url(r'^wkoff/(?P<url>.*)$',  proxy.WikiProxy.as_view(), name='proxy'), 
+    url(r'^mdl/(?P<url>.*)$',  proxy.MoodleProxy.as_view(), name='proxy'), 
+    url(r'^kacademy/(?P<url>.*)$',  proxy.KhanProxy.as_view(), name='proxy'), 
     url(r'.*', PortalViews.view_404, name='view_404'),
 ]
 
