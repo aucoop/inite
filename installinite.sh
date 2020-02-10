@@ -30,7 +30,7 @@ psql -c \"alter user $nom_user createdb;\""
 
 
 ## Entorn de python
-pip3 install venv
+apt install python3-venv
 python3 -m venv venv
 source venv/bin/activate
 pip3 install wheel
