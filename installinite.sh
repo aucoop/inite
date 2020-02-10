@@ -1,12 +1,12 @@
 #!/bin/bash
 
 if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+  then echo "ERROR: Please run as root, use sudo ./installinite.sh"
   exit
 fi
 
 if [ ! -f "./variables.json" ];then
-echo "ERROR: You must be in Inite repository's root folder?"
+echo "ERROR: You must be in Inite repository's root folder"
 exit 1
 fi
 
@@ -14,24 +14,19 @@ fi
 mkdir /etc/inite
 cp variables.json /etc/inite/
 
-### CONFIGURACIÓ DEL ROUTER ###
-# Falta aquí la configuració del router
-
-
 ### INSTALLACIO
 ## installacio del programari necssari
 apt update
 sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect -y
 
 ## Configuració de postgres
-nom_bd=`cat inite/variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
-nom_user=`cat inite/variables.json | grep DB_USER | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
-passwd_bd=`cat inite/variables.json | grep DB_PASSWORD | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+nom_bd=`cat variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+nom_user=`cat variables.json | grep DB_USER | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
+passwd_bd=`cat variables.json | grep DB_PASSWORD | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
 sudo su postgres -c "
 psql -c \"create user $nom_user with password '${passwd_bd}';\"
 psql -c \"create database $nom_bd;\"
 psql -c \"alter user $nom_user createdb;\""
-exit
 
 
 ## Entorn de python
@@ -49,6 +44,7 @@ deactivate
 echo "export PROJ_PATH=`pwd`" >> /etc/apache2/envvars
 
 ## Configuracio dels moduls i entorn
+rm /etc/apache2/sites-avaliable/000-default.conf
 cp web_server/inite.conf /etc/apache2/sites-available/
 ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf
 cp web_server/mod-wsgi.conf /etc/apache2/conf-available/

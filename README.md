@@ -5,9 +5,9 @@ Aquesta és la documentació bàsica d'Inite. Inite incorpora un servidor DNS fe
   1. Un _host_ de la xarxa interna desitja connectar-se a internet. Si el router ha estat ben configurat com explica la [documentació](#configuracio-del-router) aquest _host_ farà una petició DNS al servei per resoldre el nom del recurs que demana.
   2. Al rebre aquesta petició el servidor customDNS té dos comportaments:
     - Aquest host no ha passat pel _captive portal_: En aquest cas mostrarà el portal perquè el host es pugui registar.
-    - Aquest host s'ha registrat correctament al _captive portal_: En aquest cas podrà accedir als recurosos d'internet i/o del servidor lliurement. La base de dades del DNS serà borrada cada ( **encara no ho sabem** ) hores per forçar el registre de la gent tenint en compte que els cursos pels que s'ha dissenyat aquest servei duren 4 hores i els ordinadors són compartits.
+    - Aquest host s'ha registrat correctament al _captive portal_: En aquest cas podrà accedir als recurosos d'internet i/o del servidor lliurement. Es pot configurar el borrat de la base de dades cada x nombre d'hores per forçar el registre de la gent tenint en compte que els cursos pels que s'ha dissenyat aquest servei duren 4 hores i els ordinadors són compartits. Veure documentació [Borrat de la base de dades](#borrat-de-la-base-de-dades)
 
-- **Captive Portal:** La funció principal és recollir les dades de les persones que es dirigeixin al centre a fer els cursos. Aquest portal es veurà cada cop que un nou _host_ entri a la xarxa en les X (**aqui cal posar el nombre d'hores**) hores entre que la base de dades es _reseteja_. Permet també a un administrador amb usuari i contrasenya poder-se descarregar aquestes dades i bloquejar o permetre la sortida a internet.
+- **Captive Portal:** La funció principal és recollir les dades de les persones que es dirigeixin al centre a fer els cursos. Aquest portal es veurà cada cop que un nou _host_ entri a la xarxa en les hores entre que la base de dades es _reseteja_ (veure documentació [Borrat de la base de dades](#borrat-de-la-base-de-dades)). Permet també a un administrador amb usuari i contrasenya poder-se descarregar aquestes dades i bloquejar o permetre la sortida a internet.
 
 ## Configuració de la instal·lació
 
@@ -31,7 +31,7 @@ chmod +x installinite.sh
 
 ## Configuració del Router
 
-(falta aqui la docu de la configuració del router, el de diadem ja està configurat)
+La configuració del routerLa configuració del router  
 
 ## Instal·lació
 
@@ -68,7 +68,6 @@ alter user u_dks createdb;
 exit
 ```
 
-
 3. Configuració de l'entorn python
   1. Crear entorn virtual
   ```bash
@@ -101,6 +100,7 @@ systemctl disable systemd-resolved
     ```
   2. Configuració dels mòduls i entorn
   ```bash
+  sudo rm /etc/apache2/sites-avaliable/000-default.conf
   sudo cp web_server/inite.conf /etc/apache2/sites-available/ 
   sudo ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf 
   sudo cp web_server/mod-wsgi.conf /etc/apache2/conf-available/
@@ -202,6 +202,9 @@ Per poder seguir aquest punt cal haver completat [Instal·lació](#Instal·lacio
   2. Canviar la contrasenya i el nom d'usuari
   3. Permetre o bloquejar l'accés a internet dels ordinadors de la sala
   4. Sortir de l'usuari
+
+## Borrat de la base de dades.
+
 
 ## Manual per al desenvolupament.
 ### Com adaptar Inite a les meves necessitats
