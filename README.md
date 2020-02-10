@@ -100,6 +100,7 @@ systemctl disable systemd-resolved
     ```
   2. Configuració dels mòduls i entorn
   ```bash
+  sudo rm /etc/apache2/sites-avaliable/000-default.conf
   sudo cp web_server/inite.conf /etc/apache2/sites-available/ 
   sudo ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf 
   sudo cp web_server/mod-wsgi.conf /etc/apache2/conf-available/
