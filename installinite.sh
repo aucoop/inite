@@ -44,7 +44,7 @@ deactivate
 echo "export PROJ_PATH=`pwd`" >> /etc/apache2/envvars
 
 ## Configuracio dels moduls i entorn
-rm /etc/apache2/sites-avaliable/000-default.conf
+rm /etc/apache2/sites-enabled/000-default.conf
 cp web_server/inite.conf /etc/apache2/sites-available/
 ln -s /etc/apache2/sites-available/inite.conf /etc/apache2/sites-enabled/inite.conf
 cp web_server/mod-wsgi.conf /etc/apache2/conf-available/
