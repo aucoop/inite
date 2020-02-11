@@ -10,7 +10,7 @@ services:
   KhanAcademy:
     image: quantumobject/docker-ka-lite
     ports:
-    - "8081:8008"
+    - "8082:8008"
     restart: always
 
   mariadb:
@@ -31,7 +31,7 @@ services:
       - MOODLE_DATABASE_NAME=bitnami_moodle
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - '8083:80'
+      - '8082:80'
       - '443:443'
     volumes:
       - 'moodle_data:/bitnami'

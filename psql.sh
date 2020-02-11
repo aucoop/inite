@@ -11,7 +11,7 @@
 #
 #   3. Set the cron job that will execute this script on start up and in schedul:
 #      sudo -u postgres bash
-#      (crontab -l 2>/dev/null; echo  "* * * * * /path/to/psql.sh") | crontab -
+#      (crontab -l 2>/dev/null; echo  "30 14 * * * /path/to/psql.sh") | crontab -
 #      (crontab -l 2>/dev/null; echo  "@reboot /path/to/psql.sh") | crontab -
 
 
