@@ -49,7 +49,7 @@ if __name__ == '__main__':
     logging.debug('[*]\tConnecting with DB...')
     db = Registre_IPs(variables['DB_USER'], variables['DB_PASSWORD'], 'localhost', '5432', variables['DB_NAME'], 'portal_registre') 
   except Exception as e:
-    logging.error('Error connecting with db: '+str(e))
+    logging.debug('Error connecting with db: '+str(e))
     sys.exit()
   with open("/run/fakeDNS.pid","w") as pid_file:
     pid_file.write(str(os.getpid()))
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     udps.bind(('',53))
     logging.debug('[*]\tDns listening on port 53')
   except Exception as e:
-    logging.error('Error while port binding: ',e)
+    logging.debug('Error while port binding: '+str(e))
     sys.exit()
   signal.signal(signal.SIGUSR1, handler)
   logging.debug('[*]\tCapturing SIGUSR1...\n')
