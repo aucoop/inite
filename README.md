@@ -35,7 +35,7 @@ La configuració del routerLa configuració del router
 
 ## Instal·lació
 
-Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i derivats. La instal·lació pot fer-se de forma automàtica per mitjà del _script_ d'instal·lació _installinite.sh_ o de forma manual amb els passos següents ( **Això encara no està implementat. Cal instal·lar manualment** ). Si s'opta per la instal·lació automàtica el manual segueix al punt [posada en marxa](#posada-en-marxa).
+Guia d'instal·lació ràpida del servei Inite en un servidor Devian/Ubuntu i derivats. La instal·lació pot fer-se de forma automàtica per mitjà del _script_ d'instal·lació _installinite.sh_ o de forma manual amb els passos següents ( **Això encara no està implementat. Cal instal·lar manualment** ). Si s'opta per la instal·lació automàtica el manual segueix al punt [borrat de la base de dades](#borrat-de-la-base-de-dades).
 
 Abans de començar la instal·lació cal moure el fitxer de configuracions al lloc que el pertoca
 
@@ -129,6 +129,19 @@ sudo cp -r ./customDNS /usr/local/
 ```bash
  sudo cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
  ```
+
+## Borrat de la base de dades
+Aquesta versió del programa permet un borrat programat de la base de dades de registres, és a dir, un sistema que obligarà als usuaris a registrar-se cada un nombre determinat d'hores. És útil per exemple en sales on es fan cursos i assisteixen moltes persones diferents per obligar sempre al començament de cada curs a fer un nou registre. Aquest borrat només borra les IPs dels ordinadors que s'han registrat. No borra pas les dades que els usuaris han entrat en cada registre. La manera de fer-ho és la seguent:
+
+```bash
+sudo chmod +x ./psql.sh
+sudo chown postgres:postgres ./psql.sh
+sudo -u postgres bash
+(crontab -l 2>/dev/null; echo  "30 14 * * * /path/to/psql.sh") | crontab -  #Borra el registre de la base de dades
+(crontab -l 2>/dev/null; echo  "@reboot /path/to/psql.sh") | crontab -      #Permet el borrat dels registres a cada reinici de la maquina
+exit
+```
+És poden afegir d'aquesta manera totes les regles necessàries a _crontab_ amb per respondre a les necessitats. 
 
 ## Posada en marxa
 
