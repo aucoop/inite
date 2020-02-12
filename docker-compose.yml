@@ -30,9 +30,11 @@ services:
       - MARIADB_PORT_NUMBER=3306
       - MOODLE_DATABASE_USER=bn_moodle
       - MOODLE_DATABASE_NAME=bitnami_moodle
+      - MOODLE_USERNAME=dks
+      - MOODLE_PASSWORD=origineYEUMBEUL
       - ALLOW_EMPTY_PASSWORD=yes
     ports:
-            - '127.0.0.1:8081:80'
+            - '8081:80'
     volumes:
       - 'moodle_data:/bitnami'
     depends_on:
