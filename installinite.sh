@@ -69,8 +69,7 @@ systemctl stop systemd-resolved
 systemctl enable fakeDNS
 systemctl start fakeDNS
 systemctl restart apache2
-docker swarm init
-docker stack deploy -c ./docker-compose.yml dks
+docker-comopose up -d
 
 echo "Installation scritp is finish. Check services are running correctly with systemctl status fakeDNS and systemctl status apache2"
 
