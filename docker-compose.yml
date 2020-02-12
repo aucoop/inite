@@ -7,11 +7,11 @@ services:
             - "127.0.0.1:8080:80"
     restart: always
     
-  KhanAcademy:
-    image: quantumobject/docker-ka-lite
-    ports:
-            - "127.0.0.1:8082:8008"
-    restart: always
+    #  KhanAcademy:
+    #    image: quantumobject/docker-ka-lite
+    #    ports:
+    #            - "127.0.0.1:8082:8008"
+    #    restart: always
 
   mariadb:
     image: 'bitnami/mariadb:10.1'
