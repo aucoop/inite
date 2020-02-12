@@ -1,5 +1,5 @@
 from djproxy.views import HttpProxy
-from inite import decorators
+from  portal import decorators
 
 class WikiProxy(HttpProxy):
     #base_url = 'http://localhost:8081'
