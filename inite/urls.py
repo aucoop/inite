@@ -30,12 +30,8 @@ urlpatterns = [
     url(r'^login$', PortalViews.login, name='login'),
     url(r'^toogle$', PortalViews.toogle, name='toogle'),
     url(r'^chpasswd$', PortalViews.retrieve_canvi_contrasenya, name='chpasswd'),
-    url(r'^debug$', PortalViews.debug, name='debug'),
     url(r'^statistics$', PortalViews.retrieve_frontend, name='statistics'),
     url(r'^retrieve$', PortalViews.retrieve, name='retrieve'),
-    url(r'^wkoff/(?P<url>.*)$',  proxy.WikiProxy.as_view(), name='proxy'), 
-    url(r'^mdl/(?P<url>.*)$',  proxy.MoodleProxy.as_view(), name='proxy'), 
-    url(r'^kacademy/(?P<url>.*)$',  proxy.KhanProxy.as_view(), name='proxy'), 
     url(r'.*', PortalViews.view_404, name='view_404'),
 ]
 

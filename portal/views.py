@@ -1,17 +1,18 @@
-from django.shortcuts import render, redirect
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
-import requests
-from django.conf import settings
+from django.shortcuts import render, redirect
+from django.utils import timezone 
+
+from portal.decorators import need_login
 from portal import functions as func
 from portal.models import Usuari, Registre
-from inite.decorators import need_login
-import os
-import signal
-from django.utils import timezone 
-from inite import settings
 
-# Create your views here.
+import os
+import requests
+import signal
+
+# Views here.
 
 def login(request):
   ip = func.get_client_ip(request)
@@ -48,16 +49,11 @@ def login(request):
       u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, sexe=sexe, email=email)
       u.save()
       return redirect('/resources/')
-    
-def debug(request):
-  return render(request,'login.html')
 
 def home(request):
     if request.method == 'GET':
       return redirect('login')
-    
 
-@need_login
 def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
@@ -107,18 +103,9 @@ def retrieve(request):
         return response
       return HttpResponse(status=404)
 
-@need_login
-def wikipedia(request):
-    if request.method == "GET":
-      print('hkhk')
-
 def view_404(request, exception=None):
   return redirect('login')
-
 
 def toogle(request):
   func.toogle_router()
   return redirect('statistics')
-
-
-
