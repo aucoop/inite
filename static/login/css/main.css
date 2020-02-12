@@ -196,6 +196,7 @@ iframe {
   background: #fff;
   border-radius: 2px;
   position: relative;
+  z-index: 999;
 }
 
 /*------------------------------------------------------------------
@@ -208,6 +209,32 @@ iframe {
   position: relative;
   z-index: 1;
 }
+
+
+.login100-mobil {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+login100-more {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: calc(100% - 520px);
+  position: relative;
+  z-index: 1;
+}
+ogin100-more {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: calc(100% - 520px);
+  position: relative;
+  z-index: 1;
+}
+
 
 .login100-more::before {
   content: "";
@@ -543,4 +570,6 @@ iframe {
   margin: 25%;
   color: white;
   text-align: center;
+  min-width: 500px;
+  z-index: -1;
 }
