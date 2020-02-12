@@ -21,7 +21,7 @@ class SimpleMiddleware:
     #        pass
     # Else: redirect to login
 
-    adm_or_login = "(^/adm/|^/login)"
+    adm_or_login = "(^/adm/|^/login|^/policy)"
     if re.match(adm_or_login, request.path) is None:
       IP = func.get_client_ip(request)
       try:

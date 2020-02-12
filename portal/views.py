@@ -58,6 +58,10 @@ def resources(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
+def policy(request):
+    if request.method == 'GET':
+        return render(request, 'policy.html')
+
 @login_required()
 def retrieve_canvi_contrasenya(request):
   if request.method == 'POST':
