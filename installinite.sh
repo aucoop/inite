@@ -5,7 +5,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-if [ ! -f "./variables.json" ];then
+if [ ! -f "./variables.json" || ! -f "./docker-compose.yml" ];then
 echo "ERROR: You must be in Inite repository's root folder"
 exit 1
 fi
@@ -69,4 +69,8 @@ systemctl stop systemd-resolved
 systemctl enable fakeDNS
 systemctl start fakeDNS
 systemctl restart apache2
+docker swarm init
+docker stack deploy -c ./docker-compose.yml dks
+
 echo "Installation scritp is finish. Check services are running correctly with systemctl status fakeDNS and systemctl status apache2"
+
