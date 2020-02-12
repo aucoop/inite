@@ -25,27 +25,20 @@ class DNSQuery:
 
   def respuesta(self, capture ):
     packet=''
-
     #print(self.dominio)
     if self.dominio:
- 
       if not capture:
-        rdns = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        rdns.settimeout(5)
-        rdns.connect((self.dnsForwarding,53))
-        con = 0
-        rdns.send(self.data)
-        response = ""
-        while(con != 3):
-          try:
-            #print("entro al socket a google")
+        try:
+            rdns = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            rdns.settimeout(1)
+            rdns.connect((self.dnsForwarding,53))
+            rdns.send(self.data)
+            response = ""
             response = rdns.recv(1024)
-            break
-            #print("surto del socket google")
-          except:
-            con += 1
-            #print("timer")
-        return response
+            return response
+        except socket.timeout:
+            print('[!!!] -- socket timout')
+            pass
         
       packet+=self.data[:2] + "\x81\x80"
       packet+=self.data[4:6] + self.data[4:6] + '\x00\x00\x00\x00'   # Questions and Answers Counts

@@ -16,6 +16,7 @@ services:
   mariadb:
     image: 'bitnami/mariadb:10.1'
     environment:
+      - MOODLE_SITENAME=http://moodle.dks
       - MARIADB_USER=bn_moodle
       - MARIADB_DATABASE=bitnami_moodle
       - ALLOW_EMPTY_PASSWORD=yes

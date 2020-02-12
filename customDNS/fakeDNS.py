@@ -20,7 +20,11 @@ DOMAINS =variables['DOMAINS']
 #p = None
 
 def capture(req, domains, addr, loggedAddrs):
-  return (addr[0] not in loggedAddrs) or (req in domains)
+    for x in domains:
+        capt = x in req
+        if capt:
+            break
+    return capt or (addr[0] not in loggedAddrs) 
 
 
 def handler(nombre, frame):
