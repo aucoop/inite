@@ -54,7 +54,7 @@ if __name__ == '__main__':
     db = Registre_IPs(variables['DB_USER'], variables['DB_PASSWORD'], 'localhost', '5432', variables['DB_NAME'], 'portal_registre') 
   except Exception as e:
     logging.debug('Error connecting with db: '+str(e))
-    sys.exit()
+    sys.exit(2)
   with open("/run/fakeDNS.pid","w") as pid_file:
     pid_file.write(str(os.getpid()))
   
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     logging.debug('[*]\tDns listening on port 53')
   except Exception as e:
     logging.debug('Error while port binding: '+str(e))
-    sys.exit()
+    sys.exit(2)
   signal.signal(signal.SIGUSR1, handler)
   logging.debug('[*]\tCapturing SIGUSR1...\n')
 
@@ -86,9 +86,12 @@ if __name__ == '__main__':
                 resolved += str(ord(chars[3]))
                 logging.debug('\t[*] Dns respone: {}\n'.format(resolved))
               udps.sendto(response, addr)
+      except IOError as sig:
+        pass
       except Exception as e:
-                            logging.debug("Hi ha hagut un error %s" % e)
-                            pass
+
+        logging.debug("Hi ha hagut un error %s" % e)
+        sys.exit(2)
       #print("surto del socket 1")
 # #print 'Respuesta: %s -> %s' % (p.dominio, ip)
   except KeyboardInterrupt:
