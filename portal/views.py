@@ -48,7 +48,7 @@ def login(request):
 
       u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, sexe=sexe, email=email)
       u.save()
-      return redirect('/resources/')
+      return redirect('http://duniakato.dks/resources/')
 
 def home(request):
     if request.method == 'GET':
