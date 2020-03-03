@@ -1,6 +1,10 @@
 # INITE: Captive portal basat en DNS spoofing.
 Aquesta és la documentació bàsica d'Inite. Inite incorpora un servidor DNS fet en python i un [Captive Portal](https://en.wikipedia.org/wiki/Captive_portal) fet en el _REST framework_ de python Django:
 
+<img src="images/login.png"  width="800">
+
+<img src="images/resources.png" width="800">
+
 - **CustomDNS:** Aquest senzill dns (a la carpeta customDNS) permet l'aparició automàtica del _captive portal_ i l'enllaç amb els altres serveis del servidor. El seu funcionament és el següent:
   1. Un _host_ de la xarxa interna desitja connectar-se a internet. Si el router ha estat ben configurat com explica la [documentació](#configuracio-del-router) aquest _host_ farà una petició DNS al servei per resoldre el nom del recurs que demana.
   2. Al rebre aquesta petició el servidor customDNS té dos comportaments:
@@ -31,7 +35,7 @@ chmod +x installinite.sh
 
 ## Configuració del Router
 
-La configuració del routerLa configuració del router  
+Carrega el fitxer de configuració del router que trobaras a la carpeta (FALTA PUJAR).
 
 ## Instal·lació
 
