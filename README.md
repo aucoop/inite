@@ -62,8 +62,7 @@ sudo apt install python python-pip python3 python3-dev python-dev python3-pip ap
 ```bash
 sudo systemctl enable postgresql
 sudo systemctl start postgresql
-su postgres
-psql
+sudo -u postgres psql
 create user <valor del fitxer variables.json>;
 create database <valor del fitxer variables.json>;
 \password <valor del fitxer variables.json>;  
