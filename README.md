@@ -67,8 +67,7 @@ create user <DB_USER>;
 create database <DB_NAME>;
 alter user <DB_USER> with encrypted password <DB_PASSWORD>;
 grant all privileges on database <DB_NAME> to <DB_USER>;
-
-exit
+\q
 ```
 
 3. Configuració de l'entorn python
