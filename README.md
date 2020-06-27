@@ -63,11 +63,11 @@ sudo apt install python python-pip python3 python3-dev python-dev python3-pip ap
 sudo systemctl enable postgresql
 sudo systemctl start postgresql
 sudo -u postgres psql
-create user <valor del fitxer variables.json>;
-create database <valor del fitxer variables.json>;
-\password <valor del fitxer variables.json>;  
-alter user u_dks createdb;
-\q
+create user <DB_USER>;
+create database <DB_NAME>;
+alter user <DB_USER> with encrypted password <DB_PASSWORD>;
+grant all privileges on database <DB_NAME> to <DB_USER>;
+
 exit
 ```
 
