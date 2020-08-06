@@ -73,6 +73,28 @@ if [[ -z $a ]]; then
 fi
 #end docker
 
+#Setting de docker
+
+#Estableix el dameon
+echo "Starting docker daemon..."
+sudo service docker start
+sleep 5
+echo "Docker daemon started"
+#sudo docker-compose up
+
+cd src/
+
+##iniciem docker en mode producció
+#sudo docker-compose pull
+#sudo docker swarm init
+#sudo docker stack deploy -c ./docker-compose.yml cccd
+
+##iniciem docker en mode debug
+
+sudo docker-compose pull
+sudo docker-compose -d
+
+
 ## Configuració de postgres
 nom_bd=`cat variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
 nom_user=`cat variables.json | grep DB_USER | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
