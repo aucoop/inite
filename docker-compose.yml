@@ -1,9 +1,11 @@
 version: '3'
 services:
 
-  WikipediaOffline:
-    image: wiki-fr-img
-    ports:
+        #ATENCIO QUE SHA COMENTAT EL VIQUIPEDIA PQ NO ANAVA
+
+        #  WikipediaOffline:
+        #    image: wiki-fr-img
+        #    ports:
             - "127.0.0.1:8080:80"
     restart: always
     
