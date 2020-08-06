@@ -1,5 +1,32 @@
 #!/bin/bash
 
+SetDockerRepository() {
+         sudo apt-get install -y \
+         apt-transport-https \
+         ca-certificates \
+         curl \
+         gnupg-agent \
+         software-properties-common
+
+        echo -n "Installing GPG key...  " ; 
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+        echo "Verifying that the key with the fingerprint is correctly installed...";
+
+        if (( ! $(sudo apt-key fingerprint 0EBFCD88 2>/dev/null | wc -c) )); then
+                echo ""; echo "[-]      Error: Fingerprint not found!"; echo "";
+                return 2;
+        else 
+                echo ""; echo "[+]      Fingerprint found!"; echo "";
+        fi
+        
+        sudo add-apt-repository \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        $(lsb_release -cs) \
+        stable"
+        return 0;
+}
+
 if [ "$EUID" -ne 0 ]
   then echo "ERROR: Please run as root, use sudo ./installinite.sh"
   exit
@@ -18,6 +45,33 @@ cp variables.json /etc/inite/
 ## installacio del programari necssari
 apt update
 sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect -y
+
+## instalació de docker
+#docker
+a=$(which docker | grep usr)
+if [[ -z $a ]]; then
+echo "Installing docker"
+        SetDockerRepository;
+        if (( $? )); then
+                echo "Error installing the docker repositories, exiting...";
+        else
+                sudo apt-get update -y;
+                sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+                sudo apt autoremove -y;
+        fi
+else
+echo "Docker already installed"
+fi
+
+a=$(which docker-compose | grep usr)
+if [[ -z $a ]]; then
+        echo "Installing docker-compose"
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+fi
+#end docker
 
 ## Configuració de postgres
 nom_bd=`cat variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
