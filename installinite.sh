@@ -32,7 +32,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-if [ ! -f "./variables.json" || ! -f "./docker-compose.yml" ];then
+if [[ ! -f "./variables.json" || ! -f "./docker-compose.yml" ]];then
 echo "ERROR: You must be in Inite repository's root folder"
 exit 1
 fi
