@@ -59,17 +59,19 @@ systemctl disable systemd-resolved
 
 ## Instal·lar customDNS
 
-pip install -r customDNS/requirements.txt
-cp -r ./customDNS /usr/local/
-cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
+## TOT AIXÒ CANVIA ARA
 
-
-systemctl disable systemd-resolved
-systemctl stop systemd-resolved
-systemctl enable fakeDNS
-systemctl start fakeDNS
-systemctl restart apache2
-docker-comopose up -d
+#pip install -r customDNS/requirements.txt
+#cp -r ./customDNS /usr/local/
+#cp ./customDNS/fakeDNS.service /etc/systemd/system/fakeDNS.service
+#
+#
+#systemctl disable systemd-resolved
+#systemctl stop systemd-resolved
+#systemctl enable fakeDNS
+#systemctl start fakeDNS
+#systemctl restart apache2
+#docker-comopose up -d
 
 echo "Installation scritp is finish. Check services are running correctly with systemctl status fakeDNS and systemctl status apache2"
 
