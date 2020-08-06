@@ -20,8 +20,8 @@ SetDockerRepository() {
                 echo ""; echo "[+]      Fingerprint found!"; echo "";
         fi
         
-      sudo add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/debian \
+      add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
         $(lsb_release -cs) \
             stable" 
 
