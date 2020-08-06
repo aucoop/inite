@@ -6,8 +6,8 @@ services:
         #  WikipediaOffline:
         #    image: wiki-fr-img
         #    ports:
-            - "127.0.0.1:8080:80"
-    restart: always
+        #    - "127.0.0.1:8080:80"
+        ##restart: always
     
     #  KhanAcademy:
     #    image: quantumobject/docker-ka-lite
