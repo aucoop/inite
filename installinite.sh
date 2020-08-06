@@ -20,10 +20,11 @@ SetDockerRepository() {
                 echo ""; echo "[+]      Fingerprint found!"; echo "";
         fi
         
-        sudo add-apt-repository \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+      sudo add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/debian \
         $(lsb_release -cs) \
-        stable"
+            stable" 
+
         return 0;
 }
 
@@ -51,6 +52,7 @@ sudo apt install python python-pip python3 python3-dev python-dev python3-pip ap
 a=$(which docker | grep usr)
 if [[ -z $a ]]; then
 echo "Installing docker"
+        apt-get remove docker docker-engine docker.io containerd runc
         SetDockerRepository;
         if (( $? )); then
                 echo "Error installing the docker repositories, exiting...";
