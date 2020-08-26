@@ -17,11 +17,11 @@ class Seeder:
 
   @staticmethod
   def generate_fake_user():
-    return { 'fname': generate_random_string(), 
-             'lname': generate_random_string(), 
-             'lloc_r': generate_random_string(), 
-             'sexe': generate_random_string(), 
-             'email': generate_random_string(), 
-             'edat': generate_random_number(),
-             'policy': 'on' }
+    return {'fname'   :  generate_random_string(), 
+            'lname'   :  generate_random_string(),
+            'lloc_r'  :  generate_random_string(),
+            'sexe'    :  generate_random_string(),
+            'email'   :  generate_random_string(),
+            'edat'    :  generate_random_number(),
+            'policy'  :  'on'}
         
