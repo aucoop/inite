@@ -14,7 +14,7 @@ import signal
 
 # Views here.
 
-def login(request):
+def registration(request):
   ip = func.get_client_ip(request)
   try:
     r = Registre.objects.get(ip=ip)
@@ -22,15 +22,15 @@ def login(request):
   
   except:
     if request.method == 'GET':
-      return render(request, 'login.html')
+      return render(request, 'registration.html')
 
     elif request.method == 'POST':
-      nom = request.POST.get('fname', '')
-      cognom = request.POST.get('lname', '')
-      lloc_r = request.POST.get('lloc_r', '')
-      sexe = request.POST.get('sexe', '')
-      email = request.POST.get('email', '')
-      edat = request.POST.get('edat', '')
+      nom     =  request.POST.get('fname',   '')
+      cognom  =  request.POST.get('lname',   '')
+      lloc_r  =  request.POST.get('lloc_r',  '')
+      sexe    =  request.POST.get('sexe',    '')
+      email   =  request.POST.get('email',   '')
+      edat    =  request.POST.get('edat',    '')
 
       ip = func.get_client_ip(request)
       try:
@@ -46,13 +46,14 @@ def login(request):
       except Exception as e:
         print("Error registrant ip: " + e)
 
-      u = Usuari(nom=nom, cognom=cognom, edat=edat, resideix_a=lloc_r, sexe=sexe, email=email)
+      u = Usuari(nom=nom,
+                 cognom=cognom,
+                 edat=edat,
+                 resideix_a=lloc_r,
+                 sexe=sexe,
+                 email=email)
       u.save()
       return redirect('http://duniakato.dks/resources/')
-
-def home(request):
-    if request.method == 'GET':
-      return redirect('login')
 
 def resources(request):
     if request.method == 'GET':
@@ -61,14 +62,6 @@ def resources(request):
 def policy(request):
     if request.method == 'GET':
         return render(request, 'policy.html')
-
-@login_required()
-def retrieve_canvi_contrasenya(request):
-  if request.method == 'POST':
-    user = request.POST.get('user')
-    passwd = request.POST.get('passwd')
-    nou = {user:passwd}
-    settings.BASICAUTH_USERS = nou
 
 @login_required()
 def retrieve_frontend(request):
@@ -92,11 +85,10 @@ def retrieve(request):
           'Prénom': 'nom',
           'Nom': 'cognom',
           'Email': 'email',
-          'Âge': 'edat',
+          'Âge':  'edat',
           'Sexe': 'sexe',
           'Lieu de résidence': 'resideix_a',
           'Date de connexion': 'registrat'
-
         }
       ).values(
         'Prénom', 'Nom', 'Email', 'Âge', 'Sexe', 'Lieu de résidence', 'Date de connexion'
@@ -108,7 +100,7 @@ def retrieve(request):
       return HttpResponse(status=404)
 
 def view_404(request, exception=None):
-  return redirect('login')
+  return redirect('registration')
 
 def toogle(request):
   func.toogle_router()

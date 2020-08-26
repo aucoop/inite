@@ -1,6 +1,6 @@
 from portal import functions as func
 from portal import models
-from portal import views 
+from portal import public_views 
 
 from django.shortcuts import render, redirect
 import re
@@ -21,13 +21,13 @@ class SimpleMiddleware:
     #        pass
     # Else: redirect to login
 
-    adm_or_login = "(^/adm/|^/login|^/policy)"
+    adm_or_login = "(^/adm/|^/registration|^/policy)"
     if re.match(adm_or_login, request.path) is None:
       IP = func.get_client_ip(request)
       try:
         r = models.Registre.objects.get(ip=IP)
       except Exception as e:
-        return redirect('login')
+        return redirect('registration')
 
     response = self.get_response(request)
 

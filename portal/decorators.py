@@ -1,6 +1,6 @@
 from portal import functions as func
 from portal import models
-from portal import views 
+from portal import public_views 
 
 from django.shortcuts import render, redirect
 
