@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.utils import timezone 
 
-from portal.decorators import need_login
+from portal.decorators import need_registration
 from portal import functions as func
 from portal.models import Usuari, Registre
 
@@ -13,6 +13,18 @@ import requests
 import signal
 
 # Views here.
+
+def need_registration(function):
+    def wrap(request, *args, **kwargs):
+        IP = func.get_client_ip(request)
+        try:
+          r = models.Registre.objects.get(ip=IP)
+          return function(request, *args, **kwargs)
+        except Exception as e:
+          return redirect('login')
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
 
 def registration(request):
   ip = func.get_client_ip(request)
@@ -53,7 +65,7 @@ def registration(request):
                  sexe=sexe,
                  email=email)
       u.save()
-      return redirect('http://duniakato.dks/resources/')
+      return redirect('/')
 
 def resources(request):
     if request.method == 'GET':

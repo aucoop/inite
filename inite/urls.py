@@ -23,16 +23,16 @@ from portal import proxy
 
 urlpatterns = [
     # URL's for admin pages
-url(r'^adm/login',                  auth_views.LoginView.as_view(),               name="adm_login"),
-url(r'^adm/logout',                 auth_views.LogoutView.as_view(),              name="adm_logout"),
-url(r'^adm/change_password-done$',  auth_views.PasswordChangeDoneView.as_view(),  name="adm_cahnge_password_done"),
+url(r'^user/login',                  auth_views.LoginView.as_view(),               name="user_login"),
+url(r'^user/logout',                 auth_views.LogoutView.as_view(),              name="user_logout"),
+url(r'^user/change_password-done$',  auth_views.PasswordChangeDoneView.as_view(),  name="user_cahnge_password_done"),
 url(r'^toogle$',                    public_views.toogle,                          name='toogle'),
 url(r'^retrieve$',                  public_views.retrieve,                        name='retrieve'),
-url(r'^adm/change_password$',
+url(r'^user/change_password$',
     auth_views.PasswordChangeView.as_view(template_name = 'statistics.html',
                                           form_class    =  SetPasswordForm,
-                                          success_url   =  '/adm/change_password-done'),
-    name = "adm_change_password"),
+                                          success_url   =  '/user/change_password-done'),
+    name = "user_change_password"),
 
 url(r'^resources$',     public_views.resources,          name='resources'),
 url(r'^registration$',  public_views.registration,       name='registration'),
