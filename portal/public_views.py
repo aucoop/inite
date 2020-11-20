@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.utils import timezone 
 
-from portal.decorators import need_registration
+#from portal.decorators import need_registration
 from portal import functions as func
 from portal.models import Usuari, Registre
 
