@@ -1,0 +1,12 @@
+#!/bin/bash
+# To integrate this script into inite project follow this steps:
+#
+#	1 - Make the script executable
+#		chmod +x updateIP
+#	2 - Change it's permisions
+#		sudo chown root:root updateIP
+#	3 - Permit user www-data execute it by opening `sudo visudo` and adding the following line.
+#		www-data ALL= (root) NOPASSWD: /path/to/project/updateIP
+#
+
+kill -s SIGUSR1 $(cat /run/fakeDNS.pid)
