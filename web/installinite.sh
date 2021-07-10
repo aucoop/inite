@@ -1,40 +1,11 @@
 #!/bin/bash
 
-
-SetDockerRepository() {
-         sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
-         apt-transport-https \
-         ca-certificates \
-         curl \
-         gnupg-agent \
-         software-properties-common
-
-        echo -n "Installing GPG key...  " ; 
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-        echo "Verifying that the key with the fingerprint is correctly installed...";
-
-        if (( ! $(sudo apt-key fingerprint 0EBFCD88 2>/dev/null | wc -c) )); then
-                echo ""; echo "[-]      Error: Fingerprint not found!"; echo "";
-                return 2;
-        else 
-                echo ""; echo "[+]      Fingerprint found!"; echo "";
-        fi
-        
-      add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-        $(lsb_release -cs) \
-            stable" 
-
-        return 0;
-}
-
 if [ "$EUID" -ne 0 ]
   then echo "ERROR: Please run as root, use sudo ./installinite.sh"
   exit
 fi
 
-if [[ ! -f "./variables.json" || ! -f "./docker-compose.yml" ]];then
+if [[ ! -f "./variables.json" ]];then
 echo "ERROR: You must be in Inite repository's root folder"
 exit 1
 fi
@@ -49,6 +20,7 @@ apt update
 apt install -y 
 sudo DEBIAN_FRONTEND=noninteractive apt install -yyy \
         apache2                  \
+        apache2-dev              \
         apache2-utils            \
         expect                   \
         libapache2-mod-wsgi-py3  \
