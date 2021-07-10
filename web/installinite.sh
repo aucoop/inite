@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 SetDockerRepository() {
          sudo apt-get install -y \
          apt-transport-https \
@@ -45,7 +47,7 @@ cp variables.json /etc/inite/
 ### INSTALLACIO
 ## installacio del programari necssari
 apt update
-sudo apt install python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect -y
+sudo apt install -yyy python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect 
 
 ## instalació de docker
 #docker
@@ -108,7 +110,7 @@ psql -c \"alter user $nom_user createdb;\""
 
 
 ## Entorn de python
-apt install python3-venv
+apt install -y python3-venv
 python3 -m venv venv
 source venv/bin/activate
 pip3 install wheel
