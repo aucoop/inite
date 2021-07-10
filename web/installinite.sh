@@ -1,9 +1,8 @@
 #!/bin/bash
 
-export DEBIAN_FRONTEND=noninteractive
 
 SetDockerRepository() {
-         sudo apt-get install -y \
+         sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
          apt-transport-https \
          ca-certificates \
          curl \
@@ -47,7 +46,7 @@ cp variables.json /etc/inite/
 ### INSTALLACIO
 ## installacio del programari necssari
 apt update
-sudo apt install -yyy python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect 
+sudo DEBIAN_FRONTEND=noninteractive apt install -yyy python python-pip python3 python3-dev python-dev python3-pip apache2 postgresql postgresql-contrib libpq-dev apache2-utils libapache2-mod-wsgi-py3 expect 
 
 ## instalació de docker
 #docker
@@ -60,7 +59,7 @@ echo "Installing docker"
                 echo "Error installing the docker repositories, exiting...";
         else
                 sudo apt-get update -y;
-                sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+                sudo apt-get DEBIAN_FRONTEND=noninteractive install -y docker-ce docker-ce-cli containerd.io
                 sudo apt autoremove -y;
         fi
 else
