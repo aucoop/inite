@@ -75,7 +75,7 @@ def policy(request):
     if request.method == 'GET':
         return render(request, 'policy.html')
 
-@login_required()
+@login_required(login_url='/user/login')
 def retrieve_frontend(request):
   if request.method == 'GET':
     return render(request,'statistics.html')
