@@ -32,7 +32,7 @@ url(r'^user/change_password$',
     auth_views.PasswordChangeView.as_view(template_name = 'statistics.html',
                                           form_class    =  SetPasswordForm,
                                           success_url   =  '/user/change_password-done'),
-    name = "user_change_password"),
+                                          name = "user_change_password"),
 
 url(r'^resources$',     public_views.resources,          name='resources'),
 url(r'^registration$',  public_views.registration,       name='registration'),
