@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': variables['DB_NAME'],
         'USER': variables['DB_USER'],
         'PASSWORD': variables['DB_PASSWORD'],
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
