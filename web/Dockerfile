@@ -1,24 +1,38 @@
-FROM python:3.8
+# NOTE!!!
+# Develop Dockerfile. Remember to: 
+#  1 -> . /venv/bin/activate
+#  2 -> python manage.py makemigrations portal
+#  3 -> python manage.py migrate
+
+FROM python:3
 
 ENV PYTHONBUFFERED 1
 
-RUN apt update
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt -y update
+
 # Dependencies for psycopgy2 and mod_wsgi python package
-RUN apt install -y python3-dev libpq-dev gcc bash apache2 apache2-dev
+RUN apt install -yyy    libpq-dev    \
+                        gcc          \
+                        bash         \
+                        apache2      \
+                        apache2-dev  \
+                        postgresql   \
+                        curl
 
-# This should be a module
-RUN mkdir /app
-WORKDIR /app
-ADD . /app
-# This should be a soft link to a file from the module
-RUN mkdir /etc/inite && cp /app/variables.json /etc/inite
+RUN python3 -m venv /venv && \
+    . /venv/bin/activate && \
+    pip install $(curl https://raw.githubusercontent.com/aucoop/inite/dockerize/web/requirements.txt)
 
-RUN python -m venv venv
-RUN /app/venv/bin/python -m pip install --upgrade pip
-RUN . venv/bin/activate && pip install -r requirements.txt
+RUN mkdir /webapp
+WORKDIR /webapp
 
-RUN useradd app && chown -R app:app /app
+RUN useradd webapp && chown -R webapp:webapp /webapp/
+ 
+# Create a link to an existing file (with docker approach might not make sense)
+RUN mkdir /etc/inite && ln -s /webapp/variables.json /etc/inite/variables.json
 
-CMD su app -s /bin/bash -c '. /app/venv/bin/activate && \
-                            mod_wsgi-express start-server \ 
-                            --url-alias /static ./static /app/inite/wsgi.py'
+CMD su webapp -s /bin/bash -c '. /venv/bin/activate && \
+                               mod_wsgi-express start-server \ 
+                               --url-alias /static ./static /webapp/inite/wsgi.py'
