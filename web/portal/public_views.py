@@ -56,7 +56,7 @@ def registration(request):
           print("Error enviant signal a fakeDNS: ", e)
           pass
       except Exception as e:
-        print("Error registrant ip: " + e)
+        print("Error registrant ip: " + str(e))
 
       u = Usuari(nom=nom,
                  cognom=cognom,
