@@ -1,50 +1,32 @@
-version: '3'
+# help http://blog.dscpl.com.au/2015/06/proxying-to-python-web-application.html
+version: "3.3"
+
 services:
-
-        #ATENCIO QUE SHA COMENTAT EL VIQUIPEDIA PQ NO ANAVA
-
-        #  WikipediaOffline:
-        #    image: wiki-fr-img
-        #    ports:
-        #    - "127.0.0.1:8080:80"
-        ##restart: always
-    
-    #  KhanAcademy:
-    #    image: quantumobject/docker-ka-lite
-    #    ports:
-    #            - "127.0.0.1:8082:8008"
-    #    restart: always
-
-  mariadb:
-    image: 'bitnami/mariadb:10.1'
-    environment:
-      - MOODLE_SITENAME=http://moodle.dks
-      - MARIADB_USER=bn_moodle
-      - MARIADB_DATABASE=bitnami_moodle
-      - ALLOW_EMPTY_PASSWORD=yes
+  web:
+    build: web
+    networks:
+      - internal
+      - external
+    ports: 
+      - "80:8000"
     volumes:
-      - 'mariadb_data:/bitnami'
-    restart: always
-  Moodle:
-    image: 'bitnami/moodle:3'
+      - "./web:/webapp"
+
+  db:
+    image: postgres
     environment:
-      - MARIADB_HOST=mariadb
-      - MARIADB_PORT_NUMBER=3306
-      - MOODLE_DATABASE_USER=bn_moodle
-      - MOODLE_DATABASE_NAME=bitnami_moodle
-      - MOODLE_USERNAME=dks
-      - MOODLE_PASSWORD=origineYEUMBEUL
-      - ALLOW_EMPTY_PASSWORD=yes
-    ports:
-            - '8081:80'
-    volumes:
-      - 'moodle_data:/bitnami'
-    depends_on:
-      - mariadb
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    networks:
+      - internal
     restart: always
-volumes:
-  mariadb_data:
-    driver: local
-  moodle_data:
-    driver: local
-        
+    volumes:
+      - "./db:/var/lib/postgresql/data"
+
+networks:
+  internal:
+    driver: bridge
+    internal: true
+  external:
+    driver: bridge
