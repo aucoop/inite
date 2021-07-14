@@ -34,57 +34,8 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -yyy \
         python-dev               \
     
 
-# ## instalació de docker
-# #docker
-# a=$(which docker | grep usr)
-# if [[ -z $a ]]; then
-# echo "Installing docker"
-#         apt-get remove docker docker-engine docker.io containerd runc
-#         SetDockerRepository;
-#         if (( $? )); then
-#                 echo "Error installing the docker repositories, exiting...";
-#         else
-#                 sudo apt-get update -y;
-#                 sudo apt-get DEBIAN_FRONTEND=noninteractive install -y docker-ce docker-ce-cli containerd.io
-#                 sudo apt autoremove -y;
-#         fi
-# else
-# echo "Docker already installed"
-# fi
-# 
-# a=$(which docker-compose | grep usr)
-# if [[ -z $a ]]; then
-#         echo "Installing docker-compose"
-#         sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-#         sudo chmod +x /usr/local/bin/docker-compose
-#         sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-# 
-# fi
-# #end docker
-# 
-# #Setting de docker
-# 
-# #Estableix el dameon
-# echo "Starting docker daemon..."
-# sudo service docker start
-# sleep 5
-# echo "Docker daemon started"
-# #sudo docker-compose up
-
-# cd src/
-
-##iniciem docker en mode producció
-#sudo docker-compose pull
-#sudo docker swarm init
-#sudo docker stack deploy -c ./docker-compose.yml cccd
-
-##iniciem docker en mode debug
-
-# sudo docker-compose pull
-# sudo docker-compose -d
-
-
 ## Configuració de postgres
+sudo systemctl start postgresql
 nom_bd=`cat variables.json | grep DB_NAME | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
 nom_user=`cat variables.json | grep DB_USER | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
 passwd_bd=`cat variables.json | grep DB_PASSWORD | awk -F ":" '{print $2}' | sed -r 's/[",]//g'`
