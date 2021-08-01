@@ -329,89 +329,87 @@ document.addEventListener('DOMContentLoaded', function () {
     var ctx = document.getElementById('myChart');
 
     if (ctx) {
-      var myCanvas = ctx.getContext('2d');
-      var myChart = new Chart(myCanvas, {
-        type: 'line',
-        data: {
-          labels: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        var data = {
           datasets: [{
-            label: 'Last 6 months',
-            data: [35, 27, 40, 15, 30, 25, 45],
+            //label: 'Last 6 months',
+            //data: [35,10,2,1,40],
+            data: [
+              {x:'2021-07-27', y: 30},
+              {x:'2021-07-24', y: 80},
+              {x:'2021-07-23', y: 40},
+              {x:'2021-07-22', y: 20},
+              {x:'2021-07-21', y: 10}
+            ],
             cubicInterpolationMode: 'monotone',
             tension: 0.4,
             backgroundColor: ['rgba(95, 46, 234, 1)'],
-            borderColor: ['rgba(95, 46, 234, 1)'],
-            borderWidth: 2
-          }, {
-            label: 'Previous',
-            data: [20, 36, 16, 45, 29, 32, 10],
-            cubicInterpolationMode: 'monotone',
-            tension: 0.4,
-            backgroundColor: ['rgba(75, 222, 151, 1)'],
-            borderColor: ['rgba(75, 222, 151, 1)'],
+            borderColor: ['rgba(94, 46, 234, 1)'],
             borderWidth: 2
           }]
-        },
-        options: {
-          scales: {
-            y: {
-              min: 0,
-              max: 100,
-              ticks: {
-                stepSize: 25
+      };
+
+      var config = {
+          type: 'line',
+          data,
+          options: {
+              scales: {
+                x: {
+                  type: 'time',
+                  time: {
+                    unit: 'day'
+                  },
+                  grid: {
+                    color: gridLine
+                  }
+                },
+                  y: [{
+                    beginAtZero: true
+                  }]
               },
-              grid: {
-                display: false
-              }
-            },
-            x: {
-              grid: {
-                color: gridLine
-              }
-            }
-          },
-          elements: {
-            point: {
-              radius: 2
-            }
-          },
-          plugins: {
-            legend: {
-              position: 'top',
-              align: 'end',
-              labels: {
-                boxWidth: 8,
-                boxHeight: 8,
-                usePointStyle: true,
-                font: {
-                  size: 12,
-                  weight: '500'
+              elements: {
+                point: {
+                  radius: 3
                 }
-              }
-            },
-            title: {
-              display: true,
-              text: ['Visitor statistics', 'Nov - July'],
-              align: 'start',
-              color: '#171717',
-              font: {
-                size: 16,
-                family: 'Inter',
-                weight: '600',
-                lineHeight: 1.4
+              },
+              plugins: {
+                legend: {
+                  position: 'top',
+                  align: 'end',
+                  labels: {
+                    boxWidth: 8,
+                    boxHeight: 8,
+                    usePointStyle: true,
+                    font: {
+                      size: 12,
+                      weight: '500'
+                    }
+                  }
+                },
+                title: {
+                  display: true,
+                  text: ['Visitor statistics', 'Nov - July'],
+                  align: 'start',
+                  color: '#171717',
+                  font: {
+                    size: 16,
+                    family: 'Inter',
+                    weight: '600',
+                    lineHeight: 1.4
+                  }
+                }
+              },
+              tooltips: {
+                mode: 'index',
+                intersect: false
+              },
+              hover: {
+                mode: 'nearest',
+                intersect: true
               }
             }
-          },
-          tooltips: {
-            mode: 'index',
-            intersect: false
-          },
-          hover: {
-            mode: 'nearest',
-            intersect: true
-          }
-        }
-      });
+      };
+      var myCanvas = ctx.getContext('2d');
+      var myChart = new Chart(myCanvas, config);
       charts.visitors = myChart;
     }
     /* Customers chart */

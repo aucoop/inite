@@ -26,6 +26,7 @@ urlpatterns = [
 url(r'^user/login',                  auth_views.LoginView.as_view(),               name="user_login"),
 url(r'^user/logout',                 auth_views.LogoutView.as_view(),              name="user_logout"),
 url(r'^user/change_password-done$',  auth_views.PasswordChangeDoneView.as_view(),  name="user_cahnge_password_done"),
+url(r'^user/assistants',            public_views.assistants,                      name="user_assistants"),
 url(r'^toogle$',                    public_views.toogle,                          name='toogle'),
 url(r'^retrieve$',                  public_views.retrieve,                        name='retrieve'),
 url(r'^user/change_password$',

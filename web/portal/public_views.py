@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse
+from django.http import HttpResponseNotFound
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.utils import timezone 
 
@@ -80,6 +82,14 @@ def retrieve_frontend(request):
   if request.method == 'GET':
     return render(request,'users/index.html')
 
+@login_required(login_url='/user/login')
+def assistants(request):
+    if request.method == 'GET':
+        data = {
+                "one" : 1,
+                "two" : 2,
+        }
+        return JsonResponse(data)
 
 @login_required()
 def retrieve(request):
