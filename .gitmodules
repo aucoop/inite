@@ -4,3 +4,6 @@
 [submodule "submodules/dns-hijack"]
 	path = submodules/dns-hijack
 	url = git@github.com:Bullanga/dns-hijack.git
+[submodule "submodules/web_inite"]
+	path = submodules/web_inite
+	url = git@github.com:xXIty/web_inite.git
