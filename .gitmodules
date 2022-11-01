@@ -1,9 +1,6 @@
-[submodule "submodules/inite"]
-	path = submodules/inite
-	url = git@github.com:aucoop/inite.git
-[submodule "submodules/dns-hijack"]
-	path = submodules/dns-hijack
+[submodule "submodules/dns"]
+	path = submodules/dns
 	url = git@github.com:Bullanga/dns-hijack.git
-[submodule "submodules/web_inite"]
-	path = submodules/web_inite
+[submodule "submodules/web"]
+	path = submodules/web
 	url = git@github.com:xXIty/web_inite.git
