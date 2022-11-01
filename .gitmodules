@@ -1,6 +1,8 @@
 [submodule "submodules/dns"] 
-  path = submodules/dns
-  url = git@github.com:Bullanga/dns-hijack.git
+    path    =  submodules/dns
+    url     =  git@github.com:Bullanga/dns-hijack.git
+    branch  =  master
 [submodule "submodules/web"]
-	path = submodules/web
-	url = git@github.com:xXIty/web_inite.git
+    path    =  submodules/web
+    url     =  git@github.com:xXIty/web_inite.git
+    branch  =  main
