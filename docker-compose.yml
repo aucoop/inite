@@ -1,17 +1,30 @@
-# help http://blog.dscpl.com.au/2015/06/proxying-to-python-web-application.html
 version: "3.3"
 
+
 services:
+  # Simple landing page
   web:
-    build: web
+    build: 
+      context: ./submodules/web
+      dockerfile: Dockerfile
     networks:
       - internal
       - external
     ports: 
-      - "80:8000"
-    volumes:
-      - "./web:/webapp"
+      - "8000:8000"
 
+  # Dump dns server that hijack
+  dns-hijack:
+    build:
+      context: ./submodules/dns
+      dockerfile: Dockerfile
+    ports:
+      - "5354:53/udp"
+    networks:
+      - internal
+      - external
+
+  # Data base of users
   db:
     image: postgres
     environment:
@@ -24,9 +37,13 @@ services:
     volumes:
       - "./db:/var/lib/postgresql/data"
 
+
 networks:
+  # Internal conection between services
   internal:
     driver: bridge
     internal: true
+
+  # Conection with the outside
   external:
     driver: bridge
